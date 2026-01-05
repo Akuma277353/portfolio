@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abubakar Shaikh — Win95 Portfolio</title>
+  <meta name="description" content="Windows 95 style portfolio website." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- DESKTOP -->
+  <main id="desktop" class="desktop" aria-label="Desktop">
+    <!-- Desktop Icons -->
+    <button class="desk-icon" data-open="win-projects" aria-label="Open Projects">
+      <img class="desk-icon-img" src="icons/folder.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-emoji" aria-hidden="true">📁</div>
+      <div class="desk-icon-label">Projects</div>
+    </button>
+
+    <button class="desk-icon" data-open="win-about" aria-label="Open About">
+      <img class="desk-icon-img" src="icons/user.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-emoji" aria-hidden="true">📝</div>
+      <div class="desk-icon-label">About</div>
+    </button>
+
+    <button class="desk-icon" data-open="win-resume" aria-label="Open Resume">
+      <img class="desk-icon-img" src="icons/doc.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-emoji" aria-hidden="true">📄</div>
+      <div class="desk-icon-label">Resume</div>
+    </button>
+
+    <button class="desk-icon" data-open="win-contact" aria-label="Open Contact">
+      <img class="desk-icon-img" src="icons/mail.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-emoji" aria-hidden="true">☎️</div>
+      <div class="desk-icon-label">Contact</div>
+    </button>
+
+    <!-- WINDOWS -->
+    <!-- Projects -->
+    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="📁">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <span class="win-title-icn" aria-hidden="true">📁</span>
+          <span class="win-title-text">Projects</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="menu-bar">
+          <button class="ui-btn" type="button">File</button>
+          <button class="ui-btn" type="button">Edit</button>
+          <button class="ui-btn" type="button">View</button>
+          <span class="menu-sep"></span>
+          <span class="menu-hint">Tip: click a project to open its repo</span>
+        </div>
+
+        <div class="panel">
+          <div class="list">
+            <a class="list-item" href="https://github.com/" target="_blank" rel="noreferrer">
+              <div class="li-left">
+                <span class="li-icn" aria-hidden="true">⭐</span>
+                <div>
+                  <div class="li-title">Aurora — Event Lottery App</div>
+                  <div class="li-sub">Android • Firebase • QR • Maps</div>
+                </div>
+              </div>
+              <span class="li-right">Open</span>
+            </a>
+
+            <a class="list-item" href="https://github.com/" target="_blank" rel="noreferrer">
+              <div class="li-left">
+                <span class="li-icn" aria-hidden="true">🧩</span>
+                <div>
+                  <div class="li-title">RISC-V → WebAssembly Translator</div>
+                  <div class="li-sub">Systems • Parsing • WASM</div>
+                </div>
+              </div>
+              <span class="li-right">Open</span>
+            </a>
+
+            <a class="list-item" href="https://github.com/" target="_blank" rel="noreferrer">
+              <div class="li-left">
+                <span class="li-icn" aria-hidden="true">🧠</span>
+                <div>
+                  <div class="li-title">ML / RL Notes + Experiments</div>
+                  <div class="li-sub">Python • RL • Math</div>
+                </div>
+              </div>
+              <span class="li-right">Open</span>
+            </a>
+          </div>
+
+          <div class="statusbar">
+            <span>3 object(s)</span>
+            <span class="status-right">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="win-about" class="win" role="dialog" aria-label="About window" data-title="About Me" data-icon="📝">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <span class="win-title-icn" aria-hidden="true">📝</span>
+          <span class="win-title-text">About Me</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="panel about-panel">
+          <div class="about-divider">
+            <span class="line"></span>
+            <span class="label">about me</span>
+            <span class="line"></span>
+          </div>
+
+          <h1 class="about-title">Hello, I’m Abubakar Shaikh!</h1>
+
+          <div class="about-avatar">
+            <img
+              src="images/me.jpg"
+              alt="Portrait"
+              onload="this.nextElementSibling.style.display='none';"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="about-avatar-fallback">Add <b>images/me.jpg</b></div>
+          </div>
+
+          <p class="about-text">
+            I am a Computing Science (AI specialization) student at the University of Alberta.
+            I enjoy building software that feels polished — clean UI, solid structure, and good docs.
+          </p>
+
+          <p class="about-text">
+            I’m most interested in practical engineering and AI/ML, and I like learning systems deeply.
+            Recently: Android + Firebase projects, plus ML/RL coursework and experiments.
+          </p>
+
+          <div class="about-meta">
+            <div class="about-row">
+              <img class="mini-icn" src="icons/coffee.png" alt="" onerror="this.style.display='none'">
+              <span><b>Likes:</b> calisthenics, bouldering, table tennis, origami, maps, and “cozy” side projects</span>
+            </div>
+            <div class="about-row">
+              <img class="mini-icn" src="icons/star.png" alt="" onerror="this.style.display='none'">
+              <span><b>Currently:</b> coding, designing, organizing, and learning web dev</span>
+            </div>
+          </div>
+
+          <div class="statusbar">
+            <span>About.txt</span>
+            <span class="status-right">OK</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume -->
+    <section id="win-resume" class="win" role="dialog" aria-label="Resume window" data-title="Resume" data-icon="📄">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <span class="win-title-icn" aria-hidden="true">📄</span>
+          <span class="win-title-text">Resume</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="panel pad">
+          <p class="muted">
+            Upload your resume PDF to the repo root as <b>resume.pdf</b>.
+          </p>
+          <div class="row">
+            <a class="ui-btn primary" href="resume.pdf" target="_blank" rel="noreferrer">Open Resume</a>
+            <button class="ui-btn" id="copy-resume-link" type="button">Copy Link</button>
+          </div>
+
+          <div class="statusbar">
+            <span>resume.pdf</span>
+            <span class="status-right">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="win-contact" class="win" role="dialog" aria-label="Contact window" data-title="Contact" data-icon="☎️">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <span class="win-title-icn" aria-hidden="true">☎️</span>
+          <span class="win-title-text">Contact</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="panel pad">
+          <p><strong>Email:</strong> <a href="mailto:you@example.com">you@example.com</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">github.com/Akuma277353</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">linkedin.com/in/yourname</a></p>
+
+          <div class="group">
+            <div class="group-title">Quick Actions</div>
+            <div class="row">
+              <button class="ui-btn" id="copy-email" type="button">Copy Email</button>
+              <button class="ui-btn" id="copy-github" type="button">Copy GitHub</button>
+            </div>
+          </div>
+
+          <div class="statusbar">
+            <span>Contact</span>
+            <span class="status-right">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TASKBAR -->
+  <footer class="taskbar" aria-label="Taskbar">
+    <button id="startBtn" class="start" type="button" aria-haspopup="true" aria-controls="startMenu">
+      <span class="start-icn" aria-hidden="true">🪟</span>
+      <span>Start</span>
+    </button>
+
+    <div id="tasks" class="tasks" aria-label="Open windows"></div>
+
+    <div class="tray" aria-label="System tray">
+      <span id="clock" class="clock">00:00</span>
+    </div>
+
+    <!-- START MENU -->
+    <div id="startMenu" class="start-menu" hidden>
+      <div class="start-menu-side">Windows 95</div>
+      <div class="start-menu-main">
+        <button class="menu-item" data-open="win-projects" type="button">📁 Projects</button>
+        <button class="menu-item" data-open="win-about" type="button">📝 About</button>
+        <button class="menu-item" data-open="win-resume" type="button">📄 Resume</button>
+        <button class="menu-item" data-open="win-contact" type="button">☎️ Contact</button>
+        <div class="menu-sep"></div>
+        <a class="menu-item" href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">🐙 GitHub Profile</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
