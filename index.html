@@ -11,37 +11,156 @@
 <body>
   <!-- DESKTOP -->
   <main id="desktop" class="desktop" aria-label="Desktop">
-    <!-- Desktop Icons -->
+    <!-- Desktop Icons (single click selects, double click opens) -->
+    <button class="desk-icon" data-open="win-notes" aria-label="Open Notes">
+      <img class="desk-icon-img" src="icons/Notes.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-label">Notes</div>
+    </button>
+
     <button class="desk-icon" data-open="win-projects" aria-label="Open Projects">
-      <img class="desk-icon-img" src="icons/folder.png" alt="" onerror="this.style.display='none'">
-      <div class="desk-icon-emoji" aria-hidden="true">📁</div>
+      <img class="desk-icon-img" src="icons/Projects.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Projects</div>
     </button>
 
-    <button class="desk-icon" data-open="win-about" aria-label="Open About">
-      <img class="desk-icon-img" src="icons/user.png" alt="" onerror="this.style.display='none'">
-      <div class="desk-icon-emoji" aria-hidden="true">📝</div>
-      <div class="desk-icon-label">About</div>
+    <button class="desk-icon" data-open="win-about" aria-label="Open About Me">
+      <img class="desk-icon-img" src="icons/about.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-label">About Me</div>
     </button>
 
-    <button class="desk-icon" data-open="win-resume" aria-label="Open Resume">
-      <img class="desk-icon-img" src="icons/doc.png" alt="" onerror="this.style.display='none'">
-      <div class="desk-icon-emoji" aria-hidden="true">📄</div>
-      <div class="desk-icon-label">Resume</div>
+    <button class="desk-icon" data-open="win-skills" aria-label="Open Skills">
+      <img class="desk-icon-img" src="icons/skills.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-label">Skills</div>
     </button>
+
+    <button class="desk-icon" data-open="win-experience" aria-label="Open Experience">
+      <img class="desk-icon-img" src="icons/Experience.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-label">Experience</div>
+    </button>
+
+    <a class="desk-icon desk-icon-link" href="Assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Open Resume PDF">
+      <img class="desk-icon-img" src="icons/resume.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-label">Resume</div>
+    </a>
 
     <button class="desk-icon" data-open="win-contact" aria-label="Open Contact">
-      <img class="desk-icon-img" src="icons/mail.png" alt="" onerror="this.style.display='none'">
-      <div class="desk-icon-emoji" aria-hidden="true">☎️</div>
+      <img class="desk-icon-img" src="icons/contact.png" alt="">
       <div class="desk-icon-label">Contact</div>
     </button>
 
     <!-- WINDOWS -->
-    <!-- Projects -->
-    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="📁">
+    <section id="win-contact"
+         class="win win-auto"
+         role="dialog"
+         aria-label="Contact window"
+         data-title="Contact"
+         data-icon="icons/contact.png"
+         style="width:520px;">
+
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <span class="win-title-icn" aria-hidden="true">📁</span>
+          <img class="win-title-icn-img" src="icons/contact.png" alt="">
+          <span class="win-title-text">Contact</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="panel pad contact">
+
+          <h2 class="contact-title">“contact me”</h2>
+
+          <div class="contact-icon">
+            <img src="icons/contact.png" alt="">
+          </div>
+
+          <p class="contact-text">
+            Feel free to reach out! Whether it's for collaboration, questions,
+            or just to say hi — I'd love to hear from you.
+          </p>
+
+          <ul class="contact-list">
+            <li>
+              <strong>Email:</strong>
+              <a href="mailto:abu2012only@gmail.com">abu2012only@gmail.com</a>
+            </li>
+            <li>
+              <strong>GitHub:</strong>
+              <a href="https://github.com/Akuma277353" target="_blank">@Akuma277353</a>
+            </li>
+            <li>
+              <strong>LinkedIn:</strong>
+              <a href="https://www.linkedin.com/in/abu-shaikh" target="_blank">@Abubakar Shaikh</a>
+            </li>
+          </ul>
+
+          <p class="contact-hint">(or just click the icons in the Start menu)</p>
+
+          <div class="statusbar">
+            <span>contact.txt</span>
+            <span class="status-right">Ready</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section id="win-notes" class="win win-auto" role="dialog" aria-label="Notes window" data-title="Notes" data-icon="icons/Notes.png" style="width:640px;height:380px;">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <img class="menu-icon" src="icons/Notes.png" alt="">
+          <span class="win-title-text">Notes</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="menu-bar">
+          <button class="ui-btn" type="button">File</button>
+          <button class="ui-btn" type="button">View</button>
+          <span class="menu-sep"></span>
+          <span class="menu-hint">Tip: double-click icons on desktop</span>
+        </div>
+
+        <div class="panel pad notes">
+          <div class="notes-banner">*:･ﾟ✧*:･ﾟ ୨⎯ welcome ⎯୧ *:･ﾟ✧*:･ﾟ</div>
+          <p class="muted" style="margin-top:8px;">
+            Click any folder to explore:
+          </p>
+
+          <div class="notes-grid">
+            <button class="notes-chip" type="button" data-open="win-about"><img class="chip-icn" src="icons/about.png" alt="">about me → who I am</button>
+            <button class="notes-chip" type="button" data-open="win-projects"><img class="chip-icn" src="icons/Projects.png" alt="">projects → stuff I built</button>
+            <button class="notes-chip" type="button" data-open="win-skills"><img class="chip-icn" src="icons/skills.png" alt="">skills → how I build</button>
+            <button class="notes-chip" type="button" data-open="win-experience"><img class="chip-icn" src="icons/Experience.png" alt="">experience → what I’ve worked on</button>
+            <a class="notes-chip notes-chip-link" href="icons/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer"><img class="chip-icn" src="icons/resume.png" alt="">resume → pdf</a>
+          </div>
+
+          <hr class="rule"/>
+
+          <p style="margin:0;">
+            <strong>Quick vibe:</strong> I’m a Computing Science student (majoring in AI) who enjoys understanding software across layers: how code executes, how data is modeled, and how systems behave under constraints (correctness, edge cases, performance).
+          </p>
+
+          <div class="statusbar">
+            <span>notes.txt</span>
+            <span class="status-right">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="icons/Projects.png" style="width:720px;height:430px;">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <img class="win-title-icn-img" src="icons/Projects.png" alt="">
           <span class="win-title-text">Projects</span>
         </div>
         <div class="win-controls">
@@ -56,47 +175,86 @@
           <button class="ui-btn" type="button">Edit</button>
           <button class="ui-btn" type="button">View</button>
           <span class="menu-sep"></span>
-          <span class="menu-hint">Tip: click a project to open its repo</span>
+          <span class="menu-hint">Public projects open as links; private/WIP open as info popups</span>
         </div>
 
         <div class="panel">
-          <div class="list">
-            <a class="list-item" href="https://github.com/" target="_blank" rel="noreferrer">
+          <div class="panel-head">
+            These are snapshots of how I reason about software: behavior, data, and performance.
+          </div>
+
+          <div class="list" id="projectsList">
+            <a class="list-item" href="https://github.com/CMPUT301F25aurora/aurora-borealis" target="_blank" rel="noreferrer">
               <div class="li-left">
-                <span class="li-icn" aria-hidden="true">⭐</span>
+                <img class="li-icn-img" src="icons/star.png" alt="">
                 <div>
-                  <div class="li-title">Aurora — Event Lottery App</div>
-                  <div class="li-sub">Android • Firebase • QR • Maps</div>
+                  <div class="li-title">AuroraChance — Event Lottery System</div>
+                  <div class="li-sub">Applied software • data consistency • system behavior</div>
                 </div>
               </div>
               <span class="li-right">Open</span>
             </a>
 
-            <a class="list-item" href="https://github.com/" target="_blank" rel="noreferrer">
+            <a class="list-item"
+              href="https://github.com/Akuma277353/RayTrace_3Drender"
+              target="_blank"
+              rel="noreferrer">
               <div class="li-left">
-                <span class="li-icn" aria-hidden="true">🧩</span>
+                <img class="li-icn-img" src="icons/purple.png" alt="">
                 <div>
-                  <div class="li-title">RISC-V → WebAssembly Translator</div>
-                  <div class="li-sub">Systems • Parsing • WASM</div>
+                  <div class="li-title">C Ray Tracer — Sphere Renderer</div>
+                  <div class="li-sub">C • ray tracing • math + memory • performance-minded rendering</div>
                 </div>
               </div>
               <span class="li-right">Open</span>
             </a>
 
-            <a class="list-item" href="https://github.com/" target="_blank" rel="noreferrer">
+            <a class="list-item" href="https://github.com/Akuma277353/ReviewQuery" target="_blank" rel="noreferrer">
               <div class="li-left">
-                <span class="li-icn" aria-hidden="true">🧠</span>
+                <img class="li-icn-img" src="icons/chart.png" alt="">
                 <div>
-                  <div class="li-title">ML / RL Notes + Experiments</div>
-                  <div class="li-sub">Python • RL • Math</div>
+                  <div class="li-title">ReviewQuery — Review Data Explorer</div>
+                  <div class="li-sub">Data modeling • querying • aggregation pipelines</div>
                 </div>
               </div>
               <span class="li-right">Open</span>
             </a>
+
+            <button
+              class="list-item list-item-btn"
+              type="button"
+              data-popup-title="RISC-V Coursework Project (Private)"
+              data-popup-body="Built for a university systems course. I can’t publish the code publicly due to course policy.\n\nWhat I can share: a high-level walkthrough (how it works, what I learned), screenshots, and a private demo on request."
+            >
+              <div class="li-left">
+                <img class="li-icn-img" src="icons/puzzle.png" alt="">
+                <div>
+                  <div class="li-title">RISC-V Coursework Project (Private)</div>
+                  <div class="li-sub">Execution • instruction decoding • memory (private)</div>
+                </div>
+              </div>
+              <span class="li-right">Info</span>
+            </button>
+
+            <button
+              class="list-item list-item-btn"
+              type="button"
+              data-popup-title="Pacific Atlas (WIP)"
+              data-popup-body="Work in progress.\n\nGoal: a small interactive atlas focused on the Pacific, built incrementally with real datasets.\n\nI’ll publish the repo once the core features are stable."
+            >
+              <div class="li-left">
+                <img class="li-icn-img" src="icons/map.png" alt="">
+                <div>
+                  <div class="li-title">Pacific Atlas (WIP)</div>
+                  <div class="li-sub">Maps • data layers • interactive exploration</div>
+                </div>
+              </div>
+              <span class="li-right">Info</span>
+            </button>
           </div>
 
           <div class="statusbar">
-            <span>3 object(s)</span>
+            <span>5 item(s)</span>
             <span class="status-right">Ready</span>
           </div>
         </div>
@@ -104,10 +262,10 @@
     </section>
 
     <!-- About -->
-    <section id="win-about" class="win" role="dialog" aria-label="About window" data-title="About Me" data-icon="📝">
+    <section id="win-about" class="win" role="dialog" aria-label="About Me window" data-title="About Me" data-icon="icons/about.png" style="width:700px;height:420px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <span class="win-title-icn" aria-hidden="true">📝</span>
+          <img class="win-title-icn-img" src="icons/about.png" alt="">
           <span class="win-title-text">About Me</span>
         </div>
         <div class="win-controls">
@@ -117,91 +275,54 @@
       </div>
 
       <div class="win-body">
-        <div class="panel about-panel">
-          <div class="about-divider">
-            <span class="line"></span>
-            <span class="label">about me</span>
-            <span class="line"></span>
-          </div>
-
-          <h1 class="about-title">Hello, I’m Abubakar Shaikh!</h1>
-
-          <div class="about-avatar">
-            <img
-              src="images/me.jpg"
-              alt="Portrait"
-              onload="this.nextElementSibling.style.display='none';"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-            />
-            <div class="about-avatar-fallback">Add <b>images/me.jpg</b></div>
-          </div>
-
-          <p class="about-text">
-            I am a Computing Science (AI specialization) student at the University of Alberta.
-            I enjoy building software that feels polished — clean UI, solid structure, and good docs.
-          </p>
-
-          <p class="about-text">
-            I’m most interested in practical engineering and AI/ML, and I like learning systems deeply.
-            Recently: Android + Firebase projects, plus ML/RL coursework and experiments.
-          </p>
-
-          <div class="about-meta">
-            <div class="about-row">
-              <img class="mini-icn" src="icons/coffee.png" alt="" onerror="this.style.display='none'">
-              <span><b>Likes:</b> calisthenics, bouldering, table tennis, origami, maps, and “cozy” side projects</span>
-            </div>
-            <div class="about-row">
-              <img class="mini-icn" src="icons/star.png" alt="" onerror="this.style.display='none'">
-              <span><b>Currently:</b> coding, designing, organizing, and learning web dev</span>
-            </div>
-          </div>
-
-          <div class="statusbar">
-            <span>About.txt</span>
-            <span class="status-right">OK</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Resume -->
-    <section id="win-resume" class="win" role="dialog" aria-label="Resume window" data-title="Resume" data-icon="📄">
-      <div class="win-titlebar" data-drag-handle>
-        <div class="win-title-left">
-          <span class="win-title-icn" aria-hidden="true">📄</span>
-          <span class="win-title-text">Resume</span>
-        </div>
-        <div class="win-controls">
-          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
-          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
-        </div>
-      </div>
-
-      <div class="win-body">
         <div class="panel pad">
-          <p class="muted">
-            Upload your resume PDF to the repo root as <b>resume.pdf</b>.
-          </p>
-          <div class="row">
-            <a class="ui-btn primary" href="resume.pdf" target="_blank" rel="noreferrer">Open Resume</a>
-            <button class="ui-btn" id="copy-resume-link" type="button">Copy Link</button>
+          <div class="about-hero">
+            <div class="about-hero-text">
+              <div class="kicker">about me</div>
+              <h2 class="h2 big">Hello, I’m Abubakar Shaikh.</h2>
+              <p class="muted" style="margin-top:6px;">
+                I study Computing Science with a major in Artificial Intelligence. I’m interested in how software works across layers —
+                from execution and memory, to data models, to system behavior in real projects.
+              </p>
+            </div>
+
+            <div class="avatar-wrap" aria-label="Profile photo">
+              <img class="avatar" src="images/profile.jpg" alt="Portrait of Abubakar (profile photo)"
+                   onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');">
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="group-title">What I focus on</div>
+            <ul class="bullets">
+              <li>Tracing behavior from input → state → output (and catching edge cases)</li>
+              <li>Understanding how programs execute and use memory</li>
+              <li>Modeling data and querying it cleanly</li>
+              <li>Building applied projects that stay honest about constraints</li>
+            </ul>
+          </div>
+
+          <div class="group">
+            <div class="group-title">A note on AI</div>
+            <p class="muted" style="margin:6px 0 0;">
+              AI is my academic foundation, but I try to keep it grounded: clear assumptions, measurable results, and understanding the machinery underneath.
+            </p>
           </div>
 
           <div class="statusbar">
-            <span>resume.pdf</span>
+            <span>about.txt</span>
             <span class="status-right">Ready</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="win-contact" class="win" role="dialog" aria-label="Contact window" data-title="Contact" data-icon="☎️">
+    <!-- Skills -->
+    <section id="win-skills" class="win" role="dialog" aria-label="Skills window" data-title="Skills" data-icon="icons/skills.png" style="width:760px;height:430px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <span class="win-title-icn" aria-hidden="true">☎️</span>
-          <span class="win-title-text">Contact</span>
+          <img class="win-title-icn-img" src="icons/skills.png" alt="">
+          <span class="win-title-text">Skills</span>
         </div>
         <div class="win-controls">
           <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
@@ -211,20 +332,143 @@
 
       <div class="win-body">
         <div class="panel pad">
-          <p><strong>Email:</strong> <a href="mailto:you@example.com">abu2012only@gmail.com</a></p>
-          <p><strong>GitHub:</strong> <a href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">github.com/Akuma277353</a></p>
-          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">linkedin.com/in/abu-shaikh</a></p>
+          <div class="two-col">
+            <div>
+              <div class="group-title">Languages</div>
+              <div class="pill-grid">
+                <span class="pill">C</span>
+                <span class="pill">Python</span>
+                <span class="pill">Java</span>
+                <span class="pill">JavaScript</span>
+                <span class="pill">SQL</span>
+                <span class="pill">RISC-V (coursework)</span>
+              </div>
 
-          <div class="group">
-            <div class="group-title">Quick Actions</div>
-            <div class="row">
-              <button class="ui-btn" id="copy-email" type="button">Copy Email</button>
-              <button class="ui-btn" id="copy-github" type="button">Copy GitHub</button>
+              <div class="group-title" style="margin-top:12px;">Systems &amp; execution</div>
+              <div class="pill-grid">
+                <span class="pill">Memory + pointers</span>
+                <span class="pill">Concurrency (basics)</span>
+                <span class="pill">Debugging</span>
+                <span class="pill">Performance profiling</span>
+              </div>
+
+              <div class="group-title" style="margin-top:12px;">Data &amp; querying</div>
+              <div class="pill-grid">
+                <span class="pill">Data modeling</span>
+                <span class="pill">MongoDB aggregation</span>
+                <span class="pill">Relational algebra</span>
+                <span class="pill">Normalization (coursework)</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="group-title">Applied builds</div>
+              <div class="pill-grid">
+                <span class="pill">UI + interactions</span>
+                <span class="pill">APIs</span>
+                <span class="pill">Maps / geo features</span>
+                <span class="pill">CLI tools</span>
+              </div>
+
+              <div class="group-title" style="margin-top:12px;">Tooling</div>
+              <div class="pill-grid">
+                <span class="pill">Git + GitHub</span>
+                <span class="pill">VS Code</span>
+                <span class="pill">Android Studio</span>
+                <span class="pill">Linux basics</span>
+              </div>
+
+              <div class="group-title" style="margin-top:12px;">AI (academic)</div>
+              <p class="muted" style="margin:6px 0 0;">
+                Core coursework in ML/RL foundations — kept practical and grounded.
+              </p>
             </div>
           </div>
 
           <div class="statusbar">
-            <span>Contact</span>
+            <span>skills.ini</span>
+            <span class="status-right">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="win-experience" class="win" role="dialog" aria-label="Experience window" data-title="Experience" data-icon="icons/Experience.png" style="width:760px;height:440px;">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <img class="win-title-icn-img" src="icons/Experience.png" alt="">
+          <span class="win-title-text">Experience</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="panel pad">
+          <div class="group-title">Selected highlights</div>
+
+          <div class="timeline">
+            <div class="t-item">
+              <div class="t-when">Team project</div>
+              <div class="t-what">
+                <div class="t-title">AuroraChance</div>
+                <div class="t-sub">Applied software • consistency • edge cases</div>
+                <ul class="bullets">
+                  <li>Built features end-to-end and focused on state, errors, and predictable behavior</li>
+                  <li>Worked through timing and multi-user interactions to keep outcomes consistent</li>
+                  <li>Learned how data-model decisions show up later as bugs (or as clean flows)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Coursework</div>
+              <div class="t-what">
+                <div class="t-title">Systems, data, and AI foundations</div>
+                <div class="t-sub">Execution models • databases • algorithms • AI/RL</div>
+                <ul class="bullets">
+                  <li>Comfortable moving between “what should happen” and “what the machine is doing”</li>
+                  <li>Prefer concrete explanations: traces, invariants, tests, and measurable behavior</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="statusbar">
+            <span>experience.log</span>
+            <span class="status-right">Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="modalBackdrop" class="backdrop" hidden aria-hidden="true"></div>
+
+    <!-- POPUP MODAL -->
+    <section id="popup" class="win popup" role="dialog" aria-modal="true" aria-label="Message" data-title="Message" data-icon="icons/info.png" style="width:520px;height:260px;">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <img class="win-title-icn-img" src="icons/info.png" alt="">
+          <span class="win-title-text" id="popupTitle">Message</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="panel pad">
+          <p id="popupBody" style="white-space:pre-line; margin-top:0;"></p>
+
+          <div class="row" style="justify-content:flex-end; margin-top:10px;">
+            <button class="ui-btn" type="button" id="popupClose">OK</button>
+          </div>
+
+          <div class="statusbar">
+            <span>Message</span>
             <span class="status-right">Ready</span>
           </div>
         </div>
@@ -235,7 +479,7 @@
   <!-- TASKBAR -->
   <footer class="taskbar" aria-label="Taskbar">
     <button id="startBtn" class="start" type="button" aria-haspopup="true" aria-controls="startMenu">
-      <span class="start-icn" aria-hidden="true">🪟</span>
+      <img class="start-icn-img" src="icons/windows.png" alt="">
       <span>Start</span>
     </button>
 
@@ -245,16 +489,27 @@
       <span id="clock" class="clock">00:00</span>
     </div>
 
-    <!-- START MENU -->
+    <!-- START MENU (links only) -->
     <div id="startMenu" class="start-menu" hidden>
       <div class="start-menu-side">Windows 95</div>
       <div class="start-menu-main">
-        <button class="menu-item" data-open="win-projects" type="button">📁 Projects</button>
-        <button class="menu-item" data-open="win-about" type="button">📝 About</button>
-        <button class="menu-item" data-open="win-resume" type="button">📄 Resume</button>
-        <button class="menu-item" data-open="win-contact" type="button">☎️ Contact</button>
+        <a class="menu-item" href="https://instagram.com/abu._.shaikh" target="_blank" rel="noreferrer">
+          <img class="menu-icon" src="icons/Instagram.webp" alt="">
+          <span>Instagram</span>
+        </a>
+        <a class="menu-item" href="https://www.linkedin.com/in/abu-shaikh" target="_blank" rel="noreferrer">
+          <img class="menu-icon" src="icons/Linkedin.webp" alt="">
+          <span>LinkedIn</span>
+        </a>
+        <a class="menu-item" href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">
+          <img class="menu-icon" src="icons/Github.webp" alt="">
+          <span>GitHub</span>
+        </a>
         <div class="menu-sep"></div>
-        <a class="menu-item" href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">🐙 GitHub Profile</a>
+        <a class="menu-item" href="assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer">
+          <img class="menu-icon" src="icons/resume.png" alt="">
+          <span>Resume</span>
+        </a>
       </div>
     </div>
   </footer>
