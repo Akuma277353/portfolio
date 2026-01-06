@@ -635,3 +635,13 @@ a{ color:inherit; }
   height: auto !important;
   overflow: visible;         /* no scrolling */
 }
+
+.note-wip {
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 8px;
+  margin-top: 6px;
+  background: #fffbe6;
+  border: 1px solid #c5b97c;
+  color: #000;
+}
