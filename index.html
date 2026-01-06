@@ -17,11 +17,6 @@
       <div class="desk-icon-label">Notes</div>
     </button>
 
-    <button class="desk-icon" data-open="win-projects" aria-label="Open Projects">
-      <img class="desk-icon-img" src="icons/Projects.png" alt="" onerror="this.style.display='none'">
-      <div class="desk-icon-label">Projects</div>
-    </button>
-
     <button class="desk-icon" data-open="win-about" aria-label="Open About Me">
       <img class="desk-icon-img" src="icons/about.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">About Me</div>
@@ -32,12 +27,17 @@
       <div class="desk-icon-label">Skills</div>
     </button>
 
+    <button class="desk-icon" data-open="win-projects" aria-label="Open Projects">
+      <img class="desk-icon-img" src="icons/Projects.png" alt="" onerror="this.style.display='none'">
+      <div class="desk-icon-label">Projects</div>
+    </button>
+
     <button class="desk-icon" data-open="win-experience" aria-label="Open Experience">
       <img class="desk-icon-img" src="icons/Experience.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Experience</div>
     </button>
 
-    <a class="desk-icon desk-icon-link" href="Assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Open Resume PDF">
+    <a class="desk-icon desk-icon-link" href="assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Open Resume PDF">
       <img class="desk-icon-img" src="icons/resume.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Resume</div>
     </a>
@@ -69,40 +69,62 @@
 
       <div class="win-body">
         <div class="panel pad contact">
-
-          <h2 class="contact-title">“contact me”</h2>
-
-          <div class="contact-icon">
-            <img src="icons/contact.png" alt="">
+          <div class="contact-hero">
+            <div>
+              <div class="kicker">contact</div>
+              <h2 class="h2 big" style="margin-bottom:6px;">Let’s connect.</h2>
+              <p class="muted" style="margin:0;">
+                Best way to reach me is email. For everything else, my profiles are one click away.
+              </p>
+            </div>
+            <div class="contact-badge" aria-hidden="true">
+              <img src="icons/contact.png" alt="">
+            </div>
           </div>
 
-          <p class="contact-text">
-            Feel free to reach out! Whether it's for collaboration, questions,
-            or just to say hi — I'd love to hear from you.
-          </p>
+          <div class="contact-grid">
+            <a class="contact-card" href="mailto:abu2012only@gmail.com">
+              <div class="cc-top">
+                <img class="cc-icn" src="icons/contact.png" alt="" onerror="this.style.display='none'">
+                <div>
+                  <div class="cc-title">Email</div>
+                  <div class="cc-sub">abu2012only@gmail.com</div>
+                </div>
+              </div>
+              <div class="cc-action">Compose →</div>
+            </a>
 
-          <ul class="contact-list">
-            <li>
-              <strong>Email:</strong>
-              <a href="mailto:abu2012only@gmail.com">abu2012only@gmail.com</a>
-            </li>
-            <li>
-              <strong>GitHub:</strong>
-              <a href="https://github.com/Akuma277353" target="_blank">@Akuma277353</a>
-            </li>
-            <li>
-              <strong>LinkedIn:</strong>
-              <a href="https://www.linkedin.com/in/abu-shaikh" target="_blank">@Abubakar Shaikh</a>
-            </li>
-          </ul>
+            <a class="contact-card" href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">
+              <div class="cc-top">
+                <img class="cc-icn" src="icons/Github.webp" alt="" onerror="this.style.display='none'">
+                <div>
+                  <div class="cc-title">GitHub</div>
+                  <div class="cc-sub">@Akuma277353</div>
+                </div>
+              </div>
+              <div class="cc-action">Open profile →</div>
+            </a>
 
-          <p class="contact-hint">(or just click the icons in the Start menu)</p>
+            <a class="contact-card" href="https://www.linkedin.com/in/abu-shaikh" target="_blank" rel="noreferrer">
+              <div class="cc-top">
+                <img class="cc-icn" src="icons/Linkedin.webp" alt="" onerror="this.style.display='none'">
+                <div>
+                  <div class="cc-title">LinkedIn</div>
+                  <div class="cc-sub">/in/abu-shaikh</div>
+                </div>
+              </div>
+              <div class="cc-action">Open profile →</div>
+            </a>
+          </div>
+
+          <div class="contact-foot muted">
+            Tip: these are also in the Start menu.
+          </div>
 
           <div class="statusbar">
             <span>contact.txt</span>
             <span class="status-right">Ready</span>
           </div>
-
         </div>
       </div>
     </section>
@@ -141,10 +163,11 @@
 
           <div class="notes-grid">
             <button class="notes-chip" type="button" data-open="win-about"><img class="chip-icn" src="icons/about.png" alt="">about me → who I am</button>
-            <button class="notes-chip" type="button" data-open="win-projects"><img class="chip-icn" src="icons/Projects.png" alt="">projects → stuff I built</button>
             <button class="notes-chip" type="button" data-open="win-skills"><img class="chip-icn" src="icons/skills.png" alt="">skills → how I build</button>
+            <button class="notes-chip" type="button" data-open="win-projects"><img class="chip-icn" src="icons/Projects.png" alt="">projects → stuff I built</button>
             <button class="notes-chip" type="button" data-open="win-experience"><img class="chip-icn" src="icons/Experience.png" alt="">experience → what I’ve worked on</button>
-            <a class="notes-chip notes-chip-link" href="icons/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer"><img class="chip-icn" src="icons/resume.png" alt="">resume → pdf</a>
+            <a class="notes-chip notes-chip-link" href="assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer"><img class="chip-icn" src="icons/resume.png" alt="">resume → pdf</a>
+            <button class="notes-chip" type="button" data-open="win-contact"><img class="chip-icn" src="icons/contact.png" alt="">contact → reach me</button>
           </div>
 
           <hr class="rule"/>
@@ -229,7 +252,19 @@
               class="list-item list-item-btn"
               type="button"
               data-popup-title="RISC-V Coursework Project (Private)"
-              data-popup-body="Built for a university systems course. I can’t publish the code publicly due to course policy.\n\nWhat I can share: a high-level walkthrough (how it works, what I learned), screenshots, and a private demo on request."
+              data-popup-body="Coursework project for a computer-architecture / low-level systems class (RISC-V).
+
+What I built (high-level):
+• Instruction decoding + execution flow (fetch → decode → execute)
+• A small CPU state model (registers, program counter, and flags/state)
+• Memory model basics (loads/stores + consistent state updates)
+• A test-first workflow: small cases, edge cases, then larger programs
+
+Why it’s private:
+University academic-integrity policy.
+
+If you want details:
+I can walk you through the architecture, show screenshots, and explain what I learned — without sharing restricted source code."
             >
               <div class="li-left">
                 <img class="li-icn-img" src="icons/puzzle.png" alt="">
@@ -245,7 +280,18 @@
               class="list-item list-item-btn"
               type="button"
               data-popup-title="Pacific Atlas (WIP)"
-              data-popup-body="Work in progress.\n\nGoal: a small interactive atlas focused on the Pacific, built incrementally with real datasets.\n\nI’ll publish the repo once the core features are stable."
+              data-popup-body="Work in progress: a small interactive atlas focused on the Pacific.
+
+Planned features:
+• Island explorer cards (population, languages, history, fun facts)
+• Map layers: volcanoes, earthquakes (USGS), tectonic boundaries
+• Sea-level-rise “what if” toggles (+1m, +2m, +5m) using elevation data
+
+Goal:
+Build it incrementally with real datasets, clean UI, and fast interactions.
+
+Status:
+Not ready to publish yet — I’ll open-source it once the core map + layer system is stable."
             >
               <div class="li-left">
                 <img class="li-icn-img" src="icons/map.png" alt="">

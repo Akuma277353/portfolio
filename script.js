@@ -19,14 +19,22 @@ function init() {
   initStartMenu();
   initClock();
   initPopups();
-  openWin("win-notes");
-  openWin("win-notes");
+  openWin("win-notes", { right: true, top: 14 });
 
   const notesEl = document.getElementById("win-notes");
   if (notesEl) {
     // Force layout recalculation so height fits content
     notesEl.style.height = "auto";
   }
+
+  // Notes shortcuts (single-click)
+  $$("#win-notes .notes-chip[data-open]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openWin(btn.dataset.open);
+    });
+  });
 
   // close start menu on global click (but not when clicking inside it)
   document.addEventListener("click", (e) => {
@@ -41,7 +49,7 @@ function init() {
         closeStartMenu();
         return;
       }
-      const active = getActiveWin();
+      const active = $(".win.active");
       if (active) closeWin(active.id);
     }
   });
@@ -97,11 +105,13 @@ function initDesktopIcons(){
     closeStartMenu();
   });
 
-  // single-click selects, double-click opens
+  // icon select / open
   $$(".desk-icon[data-open]").forEach(icon => {
     icon.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      selectIcon(icon);
+      clearIconSelection();
+      icon.classList.add("selected");
       closeStartMenu();
     });
 
@@ -120,75 +130,8 @@ function initDesktopIcons(){
   });
 }
 
-function initStartMenu(){
-  startBtnEl = $("#startBtn");
-  startMenuEl = $("#startMenu");
-
-  // start menu starts hidden by default
-  startMenuEl?.setAttribute("hidden", "");
-
-  startBtnEl?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleStartMenu();
-  });
-}
-
-function toggleStartMenu(){
-  if (!startMenuEl) return;
-  const isHidden = startMenuEl.hasAttribute("hidden");
-  if (isHidden) startMenuEl.removeAttribute("hidden");
-  else startMenuEl.setAttribute("hidden", "");
-}
-
-function closeStartMenu(){
-  if (!startMenuEl) return;
-  startMenuEl.setAttribute("hidden", "");
-}
-
-function initClock(){
-  const el = $("#clock");
-  if (!el) return;
-
-  const pad2 = n => String(n).padStart(2,"0");
-  const tick = () => {
-    const d = new Date();
-    el.textContent = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
-  };
-  tick();
-  setInterval(tick, 1000);
-}
-
-function initPopups(){
-  document.querySelectorAll("[data-popup-title][data-popup-body]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      showPopup(btn.dataset.popupTitle, btn.dataset.popupBody);
-    });
-  });
-
-  $("#popupClose")?.addEventListener("click", () => closeWin("popup"));
-
-  // allow clicking backdrop to close popup
-  $("#modalBackdrop")?.addEventListener("click", () => closeWin("popup"));
-}
-
-function showPopup(title, body){
-  const popup = wins.get("popup");
-  if (!popup) return;
-
-  $("#popupTitle").textContent = title || "Message";
-  $("#popupBody").textContent = body || "";
-
-  $("#modalBackdrop").hidden = false;
-  $("#modalBackdrop").setAttribute("aria-hidden", "false");
-
-  openWin("popup", { center:true, modal:true });
-}
-
-function hidePopupBackdrop(){
-  const b = $("#modalBackdrop");
-  if (!b) return;
-  b.hidden = true;
-  b.setAttribute("aria-hidden", "true");
+function clearIconSelection(){
+  $$(".desk-icon.selected").forEach(el => el.classList.remove("selected"));
 }
 
 function openWin(id, opts={}){
@@ -213,6 +156,17 @@ function openWin(id, opts={}){
     const h = win.offsetHeight;
     win.style.left = Math.max(6, (vw - w)/2) + "px";
     win.style.top  = Math.max(6, (vh - h)/2) + "px";
+  }
+
+  if (opts.right) {
+    const margin = (typeof opts.margin === "number") ? opts.margin : 14;
+    const top = (typeof opts.top === "number") ? opts.top : 14;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight - 40;
+    const w = win.offsetWidth;
+    const h = win.offsetHeight;
+    win.style.left = Math.max(6, vw - w - margin) + "px";
+    win.style.top  = Math.max(6, Math.min(top, vh - h - 6)) + "px";
   }
 
   focusWin(id);
@@ -253,148 +207,181 @@ function minimizeWin(id){
 
 function focusWin(id){
   const win = $("#"+id);
-  if (!win) return;
+  const st = wins.get(id);
+  if (!win || !st) return;
 
-  // set z-index
+  // bring to front
   zTop += 1;
   win.style.zIndex = zTop;
 
   // active class
-  $$(".win").forEach(w => w.classList.remove("active"));
+  $$(".win.active").forEach(w => w.classList.remove("active"));
   win.classList.add("active");
 
-  renderTasks(id);
+  renderTasks();
 }
 
-function getActiveWin(){
-  const el = $(".win.active");
-  if (!el) return null;
-  return wins.get(el.id) || null;
-}
+function renderTasks(){
+  const tasksEl = $("#tasks");
+  if (!tasksEl) return;
 
-function renderTasks(activeId){
-  const tasks = $("#tasks");
-  if (!tasks) return;
-  tasks.innerHTML = "";
+  tasksEl.innerHTML = "";
 
-  const openWins = [...wins.values()].filter(w => w.open);
+  // only non-popup windows go into taskbar
+  const openWins = [...wins.values()].filter(w => w.open && w.id !== "popup");
   openWins.forEach(w => {
-    // Hide popup from taskbar (feels like a modal)
-    if (w.id === "popup") return;
-
     const btn = document.createElement("button");
     btn.className = "task";
     btn.type = "button";
+    btn.dataset.win = w.id;
 
-    // Task button content (icon + title)
-    btn.innerHTML = "";
+    // icon (path or emoji)
     if (isIconPath(w.icon)) {
       const img = document.createElement("img");
       img.className = "task-icn";
       img.src = w.icon;
       img.alt = "";
-      img.onerror = () => { img.remove(); };
+      img.onerror = () => img.remove();
       btn.appendChild(img);
     } else {
-      // Fallback to text icon if it's not a path
-      const tIcn = document.createElement("span");
-      tIcn.className = "task-emoji";
-      tIcn.textContent = w.icon;
-      btn.appendChild(tIcn);
+      const spanI = document.createElement("span");
+      spanI.className = "task-emoji";
+      spanI.textContent = w.icon;
+      btn.appendChild(spanI);
     }
 
-    const text = document.createElement("span");
-    text.className = "task-text";
-    text.textContent = w.title;
-    btn.appendChild(text);
+    const spanT = document.createElement("span");
+    spanT.className = "task-text";
+    spanT.textContent = w.title;
+    btn.appendChild(spanT);
 
-    if (w.id === activeId) btn.classList.add("active");
-
+    // click: toggle minimize/focus
     btn.addEventListener("click", () => {
       const win = $("#"+w.id);
       if (!win) return;
-
-      // if minimized, restore
-      if (w.minimized) {
-        w.minimized = false;
-        win.classList.remove("minimized");
-        focusWin(w.id);
-        renderTasks(w.id);
-        return;
-      }
-
-      // if already active, minimize
-      if (win.classList.contains("active")) {
+      if (win.classList.contains("minimized")) {
+        openWin(w.id);
+      } else if (win.classList.contains("active")) {
         minimizeWin(w.id);
-        return;
+      } else {
+        focusWin(w.id);
       }
-
-      focusWin(w.id);
-      renderTasks(w.id);
     });
 
-    tasks.appendChild(btn);
+    // mark active
+    const winEl = $("#"+w.id);
+    if (winEl?.classList.contains("active")) btn.classList.add("active");
+
+    tasksEl.appendChild(btn);
   });
 }
 
-function clearIconSelection(){
-  $$(".desk-icon.selected").forEach(i => i.classList.remove("selected"));
-}
-
-function selectIcon(iconEl){
-  clearIconSelection();
-  iconEl.classList.add("selected");
-}
-
+/* Dragging */
 function makeDraggable(win, handle){
   let dragging = false;
   let startX = 0, startY = 0;
-  let origX = 0, origY = 0;
+  let startLeft = 0, startTop = 0;
 
-  const onDown = (e) => {
+  handle.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
     dragging = true;
     focusWin(win.id);
     handle.style.cursor = "grabbing";
     startX = e.clientX;
     startY = e.clientY;
-    origX = parseInt(win.style.left || "0", 10);
-    origY = parseInt(win.style.top  || "0", 10);
+    startLeft = parseInt(win.style.left || "0", 10);
+    startTop  = parseInt(win.style.top  || "0", 10);
 
     document.addEventListener("mousemove", onMove);
     document.addEventListener("mouseup", onUp);
-  };
+  });
 
-  const onMove = (e) => {
+  function onMove(e){
     if (!dragging) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
+    win.style.left = (startLeft + dx) + "px";
+    win.style.top  = (startTop + dy) + "px";
+  }
 
-    const vw = window.innerWidth;
-    const vh = window.innerHeight - 40;
-
-    const rect = win.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
-
-    let nx = origX + dx;
-    let ny = origY + dy;
-
-    // clamp inside viewport a bit
-    nx = Math.min(vw - 60, Math.max(6, nx));
-    ny = Math.min(vh - 40, Math.max(6, ny));
-
-    win.style.left = nx + "px";
-    win.style.top  = ny + "px";
-  };
-
-  const onUp = () => {
+  function onUp(){
     dragging = false;
     handle.style.cursor = "grab";
     document.removeEventListener("mousemove", onMove);
     document.removeEventListener("mouseup", onUp);
-  };
-
-  handle.addEventListener("mousedown", onDown);
+  }
 }
 
-window.addEventListener("load", init);
+/* Start menu */
+function initStartMenu(){
+  startBtnEl = $("#startBtn");
+  startMenuEl = $("#startMenu");
+  if (!startBtnEl || !startMenuEl) return;
+
+  startBtnEl.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleStartMenu();
+  });
+}
+
+function toggleStartMenu(){
+  if (!startMenuEl) return;
+  const hidden = startMenuEl.hasAttribute("hidden");
+  if (hidden) openStartMenu();
+  else closeStartMenu();
+}
+
+function openStartMenu(){
+  if (!startMenuEl) return;
+  startMenuEl.removeAttribute("hidden");
+}
+
+function closeStartMenu(){
+  if (!startMenuEl) return;
+  startMenuEl.setAttribute("hidden","");
+}
+
+/* Clock */
+function initClock(){
+  const el = $("#clock");
+  if (!el) return;
+
+  const tick = () => {
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2,"0");
+    const mm = String(d.getMinutes()).padStart(2,"0");
+    el.textContent = `${hh}:${mm}`;
+  };
+  tick();
+  setInterval(tick, 1000 * 10);
+}
+
+/* Popups from Projects info buttons */
+function initPopups(){
+  // buttons with data-popup-title/body open modal popup
+  $$(".list-item-btn[data-popup-title]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const title = btn.dataset.popupTitle || "Message";
+      const body  = btn.dataset.popupBody  || "";
+      showPopup(title, body);
+    });
+  });
+
+  $("#popupClose")?.addEventListener("click", () => closeWin("popup"));
+  $("#modalBackdrop")?.addEventListener("click", () => closeWin("popup"));
+}
+
+function showPopup(title, body){
+  $("#popupTitle").textContent = title;
+  $("#popupBody").textContent = body;
+  openWin("popup", { center: true, modal: true });
+}
+
+function hidePopupBackdrop(){
+  const bd = $("#modalBackdrop");
+  if (!bd) return;
+  bd.hidden = true;
+  bd.setAttribute("aria-hidden","true");
+}
+
+document.addEventListener("DOMContentLoaded", init);
