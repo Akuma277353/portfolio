@@ -23,9 +23,21 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
-  background:var(--desk);
-  overflow:hidden;
   color:#000;
+
+  /* wallpaper */
+  background: url("images/wallpaper.jpg") center/cover no-repeat fixed;
+
+  /* keeps icons readable if wallpaper is busy */
+  overflow:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.15); /* darken a bit */
+  pointer-events:none;
 }
 
 .desktop{
@@ -229,7 +241,6 @@ a{ color:inherit; }
 /* Notes */
 .notes{ background: var(--paper); }
 
-/* Notes dotted boxes (Win95-ish) */
 .notes-dotbox{
   background:#fff;
   border:1px dotted #7f7f7f;
@@ -239,7 +250,6 @@ a{ color:inherit; }
 .notes-dotbox:first-child{ margin-top:0; }
 .notes-lead{ font-size:13px; }
 
-/* Notes banner */
 .notes-banner{
   font-weight:900;
   text-align:center;
@@ -247,7 +257,6 @@ a{ color:inherit; }
   background:#fff;
 }
 
-/* WIP box */
 .note-wip{
   font-size:13px;
   line-height:1.45;
@@ -256,7 +265,6 @@ a{ color:inherit; }
   border:1px solid #c5b97c;
 }
 
-/* Notes chips: classic dotted list items */
 .notes-grid{
   display:flex;
   flex-wrap:wrap;
@@ -375,6 +383,37 @@ a{ color:inherit; }
 .win.active .statusbar{ opacity:1; font-weight:800; }
 
 /* Skills layout */
+/* Skills window */
+.skills-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+.skills-group{
+  background:#fff;
+  border:2px solid var(--gray);
+  border-top-color:var(--dark);
+  border-left-color:var(--dark);
+  border-right-color:var(--light);
+  border-bottom-color:var(--light);
+  padding:10px;
+  min-width:0;
+}
+.skills-head{
+  font-weight:900;
+  margin:-10px -10px 8px;
+  padding:6px 8px;
+  background:#fafafa;
+  border-bottom:1px solid #ddd;
+}
+.skills-note{
+  font-size:12px;
+  line-height:1.45;
+  background:#fffbe6;
+  border:1px dotted #7f7f7f;
+  padding:8px;
+}
+
 .two-col{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -387,10 +426,17 @@ a{ color:inherit; }
 }
 .pill{
   display:inline-flex;
-  padding:4px 8px;
+  align-items:center;
+  padding:3px 8px;
   background:#fff;
-  border:1px solid #ddd;
+  border:2px solid var(--gray);
+  border-top-color:var(--light);
+  border-left-color:var(--light);
+  border-right-color:var(--dark);
+  border-bottom-color:var(--dark);
   font-size:12px;
+  line-height:1;
+  white-space:nowrap;
 }
 
 .group{ margin-top:12px; }
@@ -685,6 +731,7 @@ a{ color:inherit; }
 /* Mobile */
 @media (max-width:720px){
   .two-col{ grid-template-columns:1fr; }
+  .skills-grid{ grid-template-columns:1fr; }
   .t-item{ grid-template-columns: 1fr; }
   .about-hero{ flex-direction:column-reverse; align-items:flex-start; }
   .avatar-wrap{ width:120px; height:120px; }

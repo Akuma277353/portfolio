@@ -20,15 +20,14 @@ function init() {
   initGlobalOpenButtons();
   initResumeMeta();
 
-  // Open Notes + About by default
+  // Open Notes by default (startup layout)
   openWin("win-notes");
-  openWin("win-about");
-  setWinRect("win-about", { width: 900, height: 700, left: 180, top: 60 });
+  // Pin Notes to top-left like the Win95 desktop
+  setWinRect("win-notes", { left: 14, top: 14, width: 640, height: 380 });
+  repositionNotesLeft();
 
-  // pin Notes to right
-  repositionNotesRight();
   window.addEventListener("resize", () => {
-    if (isWinOpen("win-notes")) repositionNotesRight();
+    if (isWinOpen("win-notes")) repositionNotesLeft();
   });
 
   // Notes chips open windows
@@ -40,12 +39,6 @@ function init() {
       openWin(btn.dataset.open);
       closeStartMenu();
     });
-  });
-
-  // Close start menu on outside click
-  document.addEventListener("click", (e) => {
-    if (e.target.closest("#startMenu") || e.target.closest("#startBtn")) return;
-    closeStartMenu();
   });
 
   // ESC closes start menu or active window
@@ -74,7 +67,9 @@ function initWindows(){
       x: 80 + Math.floor(Math.random()*40),
       y: 60 + Math.floor(Math.random()*40),
       w: null,
-      h: null
+      h: null,
+      everOpened: false,
+      userMoved: false
     });
 
     win.style.left = wins.get(id).x + "px";
@@ -134,16 +129,40 @@ function initDesktopIcons(){
   });
 }
 
-function initGlobalOpenButtons(){
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-open]");
-    if (!btn) return;
+function initStartMenu(){
+  startBtnEl = $("#startBtn");
+  startMenuEl = $("#startMenu");
 
-    e.preventDefault();
+  startBtnEl.addEventListener("click", (e) => {
     e.stopPropagation();
-    openWin(btn.dataset.open);
+    toggleStartMenu();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#startMenu") || e.target.closest("#startBtn")) return;
     closeStartMenu();
   });
+
+  // start menu buttons that open internal windows
+  $$("#startMenu [data-open]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openWin(btn.dataset.open);
+      closeStartMenu();
+    });
+  });
+}
+
+function toggleStartMenu(){
+  if (!startMenuEl) return;
+  if (startMenuEl.hasAttribute("hidden")) startMenuEl.removeAttribute("hidden");
+  else startMenuEl.setAttribute("hidden", "");
+}
+
+function closeStartMenu(){
+  if (!startMenuEl) return;
+  startMenuEl.setAttribute("hidden", "");
 }
 
 function clearIconSelection(){
@@ -168,8 +187,14 @@ function openWin(id, opts={}){
   if (!st.w) st.w = win.offsetWidth;
   if (!st.h) st.h = win.offsetHeight;
 
-  if (id === "win-notes") {
-    requestAnimationFrame(() => repositionNotesRight());
+  // First time a window opens: place it.
+  if (!st.everOpened) {
+    st.everOpened = true;
+    if (id === "win-notes") {
+      requestAnimationFrame(() => repositionNotesLeft());
+    } else {
+      requestAnimationFrame(() => spawnOnRight(id));
+    }
   }
 
   if (id === "win-resume") {
@@ -192,6 +217,43 @@ function openWin(id, opts={}){
   renderTasks();
 }
 
+function minimizeWin(id){
+  const win = $("#"+id);
+  const st = wins.get(id);
+  if (!win || !st) return;
+
+  st.minimized = true;
+  win.classList.add("minimized");
+  win.classList.remove("active");
+  renderTasks();
+}
+
+function focusWin(id){
+  const win = $("#"+id);
+  const st = wins.get(id);
+  if (!win || !st) return;
+
+  $$(".win.active").forEach(w => w.classList.remove("active"));
+
+  win.classList.add("active");
+  zTop += 1;
+  win.style.zIndex = zTop;
+
+  renderTasks();
+}
+
+function closeWin(id){
+  const win = $("#"+id);
+  const st = wins.get(id);
+  if (!win || !st) return;
+
+  st.open = false;
+  st.minimized = false;
+  win.classList.remove("open","minimized","active");
+
+  renderTasks();
+}
+
 /* Force a window size + position (and keep internal state synced) */
 function setWinRect(id, { left, top, width, height } = {}) {
   const win = document.getElementById(id);
@@ -209,93 +271,7 @@ function setWinRect(id, { left, top, width, height } = {}) {
   st.h = win.offsetHeight;
 }
 
-function closeWin(id){
-  const win = $("#"+id);
-  const st = wins.get(id);
-  if (!win || !st) return;
-
-  st.open = false;
-  st.minimized = false;
-  win.classList.remove("open","minimized","active");
-
-  renderTasks();
-}
-
-function minimizeWin(id){
-  const win = $("#"+id);
-  const st = wins.get(id);
-  if (!win || !st) return;
-
-  st.minimized = true;
-  win.classList.add("minimized");
-  win.classList.remove("active");
-  renderTasks();
-}
-
-function focusWin(id){
-  const win = $("#"+id);
-  const st = wins.get(id);
-  if (!win || !st) return;
-
-  zTop += 1;
-  win.style.zIndex = zTop;
-
-  $$(".win.active").forEach(w => w.classList.remove("active"));
-  win.classList.add("active");
-
-  renderTasks();
-}
-
-function renderTasks(){
-  const tasksEl = $("#tasks");
-  if (!tasksEl) return;
-
-  tasksEl.innerHTML = "";
-  const openWins = [...wins.values()].filter(w => w.open);
-
-  openWins.forEach(w => {
-    const btn = document.createElement("button");
-    btn.className = "task";
-    btn.type = "button";
-    btn.dataset.win = w.id;
-
-    if (isIconPath(w.icon)) {
-      const img = document.createElement("img");
-      img.className = "task-icn";
-      img.src = w.icon;
-      img.alt = "";
-      img.onerror = () => img.remove();
-      btn.appendChild(img);
-    } else {
-      const spanI = document.createElement("span");
-      spanI.textContent = w.icon;
-      btn.appendChild(spanI);
-    }
-
-    const spanT = document.createElement("span");
-    spanT.className = "task-text";
-    spanT.textContent = w.title;
-    btn.appendChild(spanT);
-
-    btn.addEventListener("click", () => {
-      const win = $("#"+w.id);
-      if (!win) return;
-      if (win.classList.contains("minimized")) {
-        openWin(w.id);
-      } else if (win.classList.contains("active")) {
-        minimizeWin(w.id);
-      } else {
-        focusWin(w.id);
-      }
-    });
-
-    const winEl = $("#"+w.id);
-    if (winEl?.classList.contains("active")) btn.classList.add("active");
-
-    tasksEl.appendChild(btn);
-  });
-}
-
+/* Draggable windows */
 function makeDraggable(win, handle){
   let dragging = false;
   let startX = 0, startY = 0;
@@ -328,89 +304,172 @@ function makeDraggable(win, handle){
     handle.style.cursor = "grab";
     document.removeEventListener("mousemove", onMove);
     document.removeEventListener("mouseup", onUp);
+
+    // persist position + stop any "pinning" behavior
+    const st = wins.get(win.id);
+    if (st) {
+      st.userMoved = true;
+      st.x = parseInt(win.style.left || "0", 10);
+      st.y = parseInt(win.style.top  || "0", 10);
+    }
   }
 }
 
-/* Notes pinned right */
-function repositionNotesRight(){
-  const win = $("#win-notes");
-  if (!win) return;
+/* Notes pinned (left) */
+function repositionNotesLeft(){
+  const win = document.getElementById("win-notes");
+  const st = wins.get("win-notes");
+  if (!win || !st) return;
 
-  const margin = 14;
-  const top = 14;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight - 40;
+  // If the user has dragged Notes, don't keep pinning it.
+  if (st.userMoved) return;
 
-  const w = win.offsetWidth || 640;
-  const h = win.offsetHeight || 380;
+  const margin = 120;
+  const top = 70;
 
-  win.style.left = Math.max(6, vw - w - margin) + "px";
-  win.style.top  = Math.max(6, Math.min(top, vh - h - 6)) + "px";
+  win.style.left = margin + "px";
+  win.style.top  = top + "px";
+
+  // keep state synced
+  st.x = margin;
+  st.y = top;
 }
 
-/* Start menu */
-function initStartMenu(){
-  startBtnEl = $("#startBtn");
-  startMenuEl = $("#startMenu");
-  if (!startBtnEl || !startMenuEl) return;
+let rightSpawnIndex = 0;
 
-  startBtnEl.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleStartMenu();
+function spawnOnRight(id){
+  const win = document.getElementById(id);
+  const st = wins.get(id);
+  if (!win || !st) return;
+
+  const margin = 14;
+  const taskbarH = 40;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight - taskbarH;
+
+  const w = win.offsetWidth || st.w || 520;
+  const h = win.offsetHeight || st.h || 320;
+
+  // Stagger new windows down the right side
+  const step = 34;
+  const maxSteps = Math.max(1, Math.floor((vh - 20) / step));
+  const k = rightSpawnIndex % maxSteps;
+  rightSpawnIndex++;
+
+  const left = Math.max(margin, vw - w - margin);
+  const top  = Math.max(margin, Math.min(margin + k * step, vh - h - margin));
+
+  win.style.left = left + "px";
+  win.style.top  = top + "px";
+
+  st.x = left;
+  st.y = top;
+}
+
+/* Taskbar tasks */
+function renderTasks(){
+  const tasksEl = $("#tasks");
+  if (!tasksEl) return;
+
+  tasksEl.innerHTML = "";
+  const openWins = [...wins.values()].filter(w => w.open);
+
+  openWins.forEach(w => {
+    const winEl = $("#"+w.id);
+    if (!winEl) return;
+
+    const btn = document.createElement("button");
+    btn.className = "task" + (winEl.classList.contains("active") ? " active" : "");
+    btn.type = "button";
+
+    const icon = w.icon || "🗔";
+    if (isIconPath(icon)) {
+      const img = document.createElement("img");
+      img.className = "task-icn";
+      img.src = icon;
+      img.alt = "";
+      btn.appendChild(img);
+    } else {
+      const span = document.createElement("span");
+      span.textContent = icon;
+      btn.appendChild(span);
+    }
+
+    const text = document.createElement("span");
+    text.className = "task-text";
+    text.textContent = w.title;
+    btn.appendChild(text);
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (w.minimized) {
+        w.minimized = false;
+        winEl.classList.remove("minimized");
+        focusWin(w.id);
+      } else if (winEl.classList.contains("active")) {
+        minimizeWin(w.id);
+      } else {
+        focusWin(w.id);
+      }
+      closeStartMenu();
+    });
+
+    tasksEl.appendChild(btn);
   });
 }
 
-function toggleStartMenu(){
-  if (!startMenuEl) return;
-  const hidden = startMenuEl.hasAttribute("hidden");
-  if (hidden) openStartMenu();
-  else closeStartMenu();
+/* Global open buttons */
+function initGlobalOpenButtons(){
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-open]");
+    if (!btn) return;
+
+    // ignore desktop icons and notes chips (they have their own handlers)
+    if (btn.classList.contains("desk-icon")) return;
+    if (btn.classList.contains("notes-chip")) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    openWin(btn.dataset.open);
+    closeStartMenu();
+  });
 }
-function openStartMenu(){ startMenuEl?.removeAttribute("hidden"); }
-function closeStartMenu(){ startMenuEl?.setAttribute("hidden",""); }
 
 /* Clock */
 function initClock(){
-  const el = $("#clock");
-  if (!el) return;
+  const clock = $("#clock");
+  if (!clock) return;
 
-  const tick = () => {
+  function tick(){
     const d = new Date();
     const hh = String(d.getHours()).padStart(2,"0");
     const mm = String(d.getMinutes()).padStart(2,"0");
-    el.textContent = `${hh}:${mm}`;
-  };
+    clock.textContent = `${hh}:${mm}`;
+  }
   tick();
-  setInterval(tick, 1000 * 10);
+  setInterval(tick, 1000);
 }
 
-/* Popups (Info) - NON MODAL, works for all buttons with data-popup-title */
+/* Popup info window */
 function initPopups(){
-  // Event delegation: catches ALL current and future info buttons
+  const popup = $("#popup");
+  const popupTitle = $("#popupTitle");
+  const popupBody = $("#popupBody");
+  const popupClose = $("#popupClose");
+
+  if (popupClose) popupClose.addEventListener("click", () => closeWin("popup"));
+
   document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".info-btn[data-popup-title][data-popup-body]");
+    const btn = e.target.closest(".info-btn");
     if (!btn) return;
-
     e.preventDefault();
     e.stopPropagation();
 
-    showPopup(btn.dataset.popupTitle || "Info", btn.dataset.popupBody || "");
+    if (popupTitle) popupTitle.textContent = btn.dataset.popupTitle || "Info";
+    if (popupBody) popupBody.textContent = btn.dataset.popupBody || "";
+
+    openWin("popup", { center: true });
   });
-
-  $("#popupClose")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    closeWin("popup");
-  });
-}
-
-function showPopup(title, body){
-  const titleEl = $("#popupTitle");
-  const bodyEl = $("#popupBody");
-  if (titleEl) titleEl.textContent = title;
-  if (bodyEl) bodyEl.textContent = body;
-
-  openWin("popup", { center: true });
 }
 
 /* Resume meta */
@@ -418,52 +477,55 @@ function initResumeMeta(){
   updateResumeMeta();
 }
 
-function hydrateResumeViewer(){
-  const resumeWin = $("#win-resume");
-  if (!resumeWin) return;
-
-  const pdf = resumeWin.querySelector(".resume-body")?.dataset?.pdf || "assets/Abubakar_Shaikh_Resume.pdf";
-
-  const frame = $("#resumeFrame");
-  if (frame && frame.getAttribute("src") !== pdf) frame.setAttribute("src", pdf);
-
-  const openBtn = $("#resumeOpenNewTab");
-  const dlBtn = $("#resumeDownload");
-  if (openBtn) openBtn.href = pdf;
-  if (dlBtn) dlBtn.href = pdf;
-}
-
 async function updateResumeMeta(){
-  const resumeWin = $("#win-resume");
-  const pdf = resumeWin?.querySelector(".resume-body")?.dataset?.pdf || "assets/Abubakar_Shaikh_Resume.pdf";
-
-  const last = safeDate(document.lastModified);
-  const lastStr = last ? formatDateTime(last) : "Unknown";
+  const el = $("#resumeMeta");
+  const statusLeft = $("#resumeStatusLeft");
   const statusRight = $("#resumeStatusRight");
-  if (statusRight) statusRight.textContent = `Last updated: ${lastStr}`;
+  const infoLine = $("#resumeInfoLine");
+  const resumeBody = $(".resume-body");
+  if (!resumeBody) return;
 
-  let sizeStr = "…";
-  try {
-    const res = await fetch(pdf, { method: "HEAD", cache: "no-store" });
-    const len = res.headers.get("content-length");
-    if (len) sizeStr = humanBytes(Number(len));
-  } catch {}
+  const pdf = resumeBody.dataset.pdf;
+  if (!pdf) return;
 
-  const line = sizeStr === "…" ? "PDF" : `PDF • ${sizeStr}`;
+  try{
+    const r = await fetch(pdf, { method:"HEAD", cache:"no-cache" });
+    const len = r.headers.get("content-length");
+    const lm = r.headers.get("last-modified");
 
-  $("#resumeInfoLine") && ($("#resumeInfoLine").textContent = line);
-  $("#resumeStatusLeft") && ($("#resumeStatusLeft").textContent = line);
-  $("#resumeMeta") && ($("#resumeMeta").textContent = `(${line})`);
+    const sizeKB = len ? Math.round(parseInt(len,10)/1024) : null;
+    const last = lm ? safeDate(lm) : null;
+
+    const meta = [
+      "PDF",
+      sizeKB ? `${sizeKB} KB` : null
+    ].filter(Boolean).join(" • ");
+
+    if (el) el.textContent = `(${meta})`;
+    if (statusLeft) statusLeft.textContent = meta;
+    if (infoLine) infoLine.textContent = meta;
+
+    if (statusRight) {
+      statusRight.textContent = last ? `Last updated: ${formatDateTime(last)}` : "Last updated: …";
+    }
+  } catch {
+    if (el) el.textContent = "(PDF • …)";
+    if (statusLeft) statusLeft.textContent = "PDF • …";
+    if (infoLine) infoLine.textContent = "PDF • …";
+    if (statusRight) statusRight.textContent = "Last updated: …";
+  }
 }
 
-function humanBytes(bytes){
-  if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
-  const units = ["B","KB","MB","GB"];
-  let i = 0;
-  let n = bytes;
-  while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
-  const digits = i === 0 ? 0 : (i === 1 ? 1 : 2);
-  return `${n.toFixed(digits)} ${units[i]}`;
+/* Make sure resume iframe is pointed to the pdf */
+function hydrateResumeViewer(){
+  const frame = $("#resumeFrame");
+  const wrap = $(".resume-body");
+  if (!frame || !wrap) return;
+
+  const pdf = wrap.dataset.pdf;
+  if (pdf && frame.getAttribute("src") !== pdf) {
+    frame.setAttribute("src", pdf);
+  }
 }
 
 function safeDate(v){
