@@ -600,14 +600,14 @@ a{ color:inherit; }
   image-rendering: pixelated;
 }
 .li-icn-img{
-  width:18px;
-  height:18px;
+  width:25px;
+  height:25px;
   flex-shrink:0;
   image-rendering: pixelated;
 }
 .chip-icn{
-  width:16px;
-  height:16px;
+  width:18px;
+  height:18px;
   margin-right:6px;
   flex-shrink:0;
   image-rendering: pixelated;
