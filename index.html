@@ -11,7 +11,7 @@
 <body>
   <!-- DESKTOP -->
   <main id="desktop" class="desktop" aria-label="Desktop">
-    <!-- Desktop Icons (single click selects, double click opens) -->
+    <!-- Desktop Icons (order you requested) -->
     <button class="desk-icon" data-open="win-notes" aria-label="Open Notes">
       <img class="desk-icon-img" src="icons/Notes.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Notes</div>
@@ -37,24 +37,24 @@
       <div class="desk-icon-label">Experience</div>
     </button>
 
-    <a class="desk-icon desk-icon-link" href="assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Open Resume PDF">
+    <button class="desk-icon" data-open="win-resume" aria-label="Open Resume">
       <img class="desk-icon-img" src="icons/resume.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Resume</div>
-    </a>
+    </button>
 
     <button class="desk-icon" data-open="win-contact" aria-label="Open Contact">
       <img class="desk-icon-img" src="icons/contact.png" alt="">
       <div class="desk-icon-label">Contact</div>
     </button>
 
-    <!-- WINDOWS -->
+    <!-- CONTACT -->
     <section id="win-contact"
-         class="win win-auto"
-         role="dialog"
-         aria-label="Contact window"
-         data-title="Contact"
-         data-icon="icons/contact.png"
-         style="width:520px;">
+      class="win win-auto"
+      role="dialog"
+      aria-label="Contact window"
+      data-title="Contact"
+      data-icon="icons/contact.png"
+      style="width:520px;">
 
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
@@ -129,7 +129,7 @@
       </div>
     </section>
 
-    <!-- Notes -->
+    <!-- NOTES -->
     <section id="win-notes" class="win win-auto" role="dialog" aria-label="Notes window" data-title="Notes" data-icon="icons/Notes.png" style="width:640px;height:380px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
@@ -152,11 +152,13 @@
 
         <div class="panel pad notes">
           <div class="notes-banner">*:･ﾟ✧*:･ﾟ ୨⎯ welcome ⎯୧ *:･ﾟ✧*:･ﾟ</div>
+
           <div class="note-wip">
             <strong>Work in Progress</strong><br />
             This website is still under development and is not yet finished.
             Some features may be incomplete or change over time.
           </div>
+
           <p class="muted" style="margin-top:8px;">
             Click any folder to explore:
           </p>
@@ -166,14 +168,20 @@
             <button class="notes-chip" type="button" data-open="win-skills"><img class="chip-icn" src="icons/skills.png" alt="">skills → how I build</button>
             <button class="notes-chip" type="button" data-open="win-projects"><img class="chip-icn" src="icons/Projects.png" alt="">projects → stuff I built</button>
             <button class="notes-chip" type="button" data-open="win-experience"><img class="chip-icn" src="icons/Experience.png" alt="">experience → what I’ve worked on</button>
-            <a class="notes-chip notes-chip-link" href="assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer"><img class="chip-icn" src="icons/resume.png" alt="">resume → pdf</a>
+
+            <!-- NOTE: Download button removed from Notes (as requested) -->
+            <button class="notes-chip" type="button" data-open="win-resume">
+              <img class="chip-icn" src="icons/resume.png" alt="">
+              resume → pdf <span class="chip-meta" id="resumeMeta">(PDF • …)</span>
+            </button>
+
             <button class="notes-chip" type="button" data-open="win-contact"><img class="chip-icn" src="icons/contact.png" alt="">contact → reach me</button>
           </div>
 
           <hr class="rule"/>
 
           <p style="margin:0;">
-            <strong>Quick vibe:</strong> I’m a Computing Science student (majoring in AI) who enjoys understanding software across layers: how code executes, how data is modeled, and how systems behave under constraints (correctness, edge cases, performance).
+            <strong>Quick vibe:</strong> Computing Science (AI) student curious about how software works end-to-end — from execution and data to real-world constraints.
           </p>
 
           <div class="statusbar">
@@ -184,8 +192,62 @@
       </div>
     </section>
 
-    <!-- Projects -->
-    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="icons/Projects.png" style="width:720px;height:430px;">
+    <!-- RESUME -->
+    <section id="win-resume" class="win" role="dialog" aria-label="Resume window" data-title="Resume" data-icon="icons/resume.png" style="width:820px;height:520px;">
+      <div class="win-titlebar" data-drag-handle>
+        <div class="win-title-left">
+          <img class="win-title-icn-img" src="icons/resume.png" alt="">
+          <span class="win-title-text">Resume</span>
+        </div>
+        <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="win-btn" data-action="close" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="win-body resume-body" data-pdf="assets/Abubakar_Shaikh_Resume.pdf">
+        <div class="menu-bar">
+          <button class="ui-btn" type="button">File</button>
+          <button class="ui-btn" type="button">View</button>
+          <span class="menu-sep"></span>
+          <span class="menu-hint">If preview fails, use Download.</span>
+        </div>
+
+        <div class="panel pad">
+          <div class="resume-toolbar">
+            <div class="resume-left">
+              <img class="li-icn-img" src="icons/resume.png" alt="">
+              <div>
+                <div class="li-title">Abubakar_Shaikh_Resume.pdf</div>
+                <div class="li-sub" id="resumeInfoLine">PDF • …</div>
+              </div>
+            </div>
+
+            <div class="resume-actions">
+              <a class="ui-btn" id="resumeOpenNewTab" target="_blank" rel="noreferrer" href="assets/Abubakar_Shaikh_Resume.pdf">Open in new tab</a>
+              <a class="ui-btn primary" id="resumeDownload" href="assets/Abubakar_Shaikh_Resume.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="resume-viewer-wrap" aria-label="Resume PDF viewer">
+            <iframe
+              id="resumeFrame"
+              title="Resume PDF"
+              class="resume-frame"
+              src="assets/Abubakar_Shaikh_Resume.pdf"
+              loading="lazy"></iframe>
+          </div>
+
+          <div class="statusbar">
+            <span id="resumeStatusLeft">PDF • …</span>
+            <span class="status-right" id="resumeStatusRight">Last updated: …</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="icons/Projects.png" style="width:780px;height:460px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
           <img class="win-title-icn-img" src="icons/Projects.png" alt="">
@@ -203,105 +265,117 @@
           <button class="ui-btn" type="button">Edit</button>
           <button class="ui-btn" type="button">View</button>
           <span class="menu-sep"></span>
-          <span class="menu-hint">Public projects open as links; private/WIP open as info popups</span>
+          <span class="menu-hint">Open goes to GitHub. Info shows a short description.</span>
         </div>
 
         <div class="panel">
           <div class="panel-head">
-            These are snapshots of how I reason about software: behavior, data, and performance.
+            Selected projects. “Info” gives a quick overview; “Open” takes you to the repo (if public).
           </div>
 
           <div class="list" id="projectsList">
-            <a class="list-item" href="https://github.com/CMPUT301F25aurora/aurora-borealis" target="_blank" rel="noreferrer">
-              <div class="li-left">
-                <img class="li-icn-img" src="icons/star.png" alt="">
-                <div>
-                  <div class="li-title">AuroraChance — Event Lottery System</div>
-                  <div class="li-sub">Applied software • data consistency • system behavior</div>
+            <!-- 1 -->
+            <div class="proj-item">
+              <a class="proj-main" href="https://github.com/CMPUT301F25aurora/aurora-borealis" target="_blank" rel="noreferrer">
+                <div class="li-left">
+                  <img class="li-icn-img" src="icons/star.png" alt="">
+                  <div>
+                    <div class="li-title">AuroraChance — Event Lottery System</div>
+                    <div class="li-sub">Android team project: event signups, lotteries, notifications, and consistent state handling.</div>
+                  </div>
+                </div>
+              </a>
+              <div class="proj-actions">
+                <a class="ui-btn" href="https://github.com/CMPUT301F25aurora/aurora-borealis" target="_blank" rel="noreferrer">Open</a>
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="AuroraChance — Event Lottery System"
+                  data-popup-body="A community event lottery app built in a team setting.\n\nHighlights:\n• Role-based flows (entrant/organizer/admin)\n• Lottery + waiting list logic (fair selection + predictable outcomes)\n• Notifications + user actions that stay consistent\n• Real-world edge cases: duplicates, timing, invalid states\n\nWhat I focused on:\nBuilding features end-to-end, keeping behavior consistent, and debugging UI/state issues in a real codebase.">
+                  Info
+                </button>
+              </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="proj-item">
+              <a class="proj-main" href="https://github.com/Akuma277353/RayTrace_3Drender" target="_blank" rel="noreferrer">
+                <div class="li-left">
+                  <img class="li-icn-img" src="icons/purple.png" alt="">
+                  <div>
+                    <div class="li-title">C Ray Tracer — Sphere Renderer</div>
+                    <div class="li-sub">C renderer: ray-sphere intersections, shading basics, and performance-aware loops.</div>
+                  </div>
+                </div>
+              </a>
+              <div class="proj-actions">
+                <a class="ui-btn" href="https://github.com/Akuma277353/RayTrace_3Drender" target="_blank" rel="noreferrer">Open</a>
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="C Ray Tracer — Sphere Renderer"
+                  data-popup-body="A small ray tracer written in C.\n\nHighlights:\n• Ray–sphere intersection math\n• Basic shading (surface normals + light direction)\n• Tight loops + careful memory use\n• Output as an image render pipeline\n\nWhy it matters:\nIt forced me to balance math correctness, performance, and low-level debugging.">
+                  Info
+                </button>
+              </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="proj-item">
+              <a class="proj-main" href="https://github.com/Akuma277353/ReviewQuery" target="_blank" rel="noreferrer">
+                <div class="li-left">
+                  <img class="li-icn-img" src="icons/chart.png" alt="">
+                  <div>
+                    <div class="li-title">ReviewQuery — Review Data Explorer</div>
+                    <div class="li-sub">Data exploration: filtering, aggregations, and sanity-checking results.</div>
+                  </div>
+                </div>
+              </a>
+              <div class="proj-actions">
+                <a class="ui-btn" href="https://github.com/Akuma277353/ReviewQuery" target="_blank" rel="noreferrer">Open</a>
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="ReviewQuery — Review Data Explorer"
+                  data-popup-body="A small project focused on querying and exploring review datasets.\n\nHighlights:\n• Transparent query logic you can debug\n• Aggregations (grouping, counts, averages)\n• Data sanity checks (bad rows, missing fields)\n\nGoal:\nMake exploration fast while keeping the logic explainable.">
+                  Info
+                </button>
+              </div>
+            </div>
+
+            <!-- 4 (Private) -->
+            <div class="proj-item">
+              <div class="proj-main proj-main-static" role="group" aria-label="RISC-V Coursework Project">
+                <div class="li-left">
+                  <img class="li-icn-img" src="icons/puzzle.png" alt="">
+                  <div>
+                    <div class="li-title">RISC-V Coursework Project (Private)</div>
+                    <div class="li-sub">Private coursework: instruction decode/execution and a small CPU state model.</div>
+                  </div>
                 </div>
               </div>
-              <span class="li-right">Open</span>
-            </a>
+              <div class="proj-actions">
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="RISC-V Coursework Project (Private)"
+                  data-popup-body="Coursework project for RISC-V / computer architecture.\n\nWhat I built (high-level):\n• Instruction decode + execute flow (fetch → decode → execute)\n• CPU state model (registers, PC, consistent updates)\n• Memory ops (loads/stores + correctness checks)\n• Testing workflow (small cases → edge cases)\n\nWhy it’s private:\nAcademic-integrity policy.\n\nI can still explain the architecture + what I learned without sharing restricted code.">
+                  Info
+                </button>
+              </div>
+            </div>
 
-            <a class="list-item"
-              href="https://github.com/Akuma277353/RayTrace_3Drender"
-              target="_blank"
-              rel="noreferrer">
-              <div class="li-left">
-                <img class="li-icn-img" src="icons/purple.png" alt="">
-                <div>
-                  <div class="li-title">C Ray Tracer — Sphere Renderer</div>
-                  <div class="li-sub">C • ray tracing • math + memory • performance-minded rendering</div>
+            <!-- 5 (WIP) -->
+            <div class="proj-item">
+              <div class="proj-main proj-main-static" role="group" aria-label="Pacific Atlas">
+                <div class="li-left">
+                  <img class="li-icn-img" src="icons/map.png" alt="">
+                  <div>
+                    <div class="li-title">Pacific Atlas (WIP)</div>
+                    <div class="li-sub">WIP mapping project: interactive layers (quakes, volcanoes) + island explorer.</div>
+                  </div>
                 </div>
               </div>
-              <span class="li-right">Open</span>
-            </a>
-
-            <a class="list-item" href="https://github.com/Akuma277353/ReviewQuery" target="_blank" rel="noreferrer">
-              <div class="li-left">
-                <img class="li-icn-img" src="icons/chart.png" alt="">
-                <div>
-                  <div class="li-title">ReviewQuery — Review Data Explorer</div>
-                  <div class="li-sub">Data modeling • querying • aggregation pipelines</div>
-                </div>
+              <div class="proj-actions">
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="Pacific Atlas (WIP)"
+                  data-popup-body="Work in progress: an interactive atlas focused on the Pacific.\n\nPlanned features:\n• Island explorer cards (population, languages, history)\n• Map layers: volcanoes, earthquakes (USGS), tectonic boundaries\n• Sea-level-rise toggles (+1m, +2m, +5m) using elevation data\n\nGoal:\nBuild it incrementally with real datasets and fast interactions.\n\nStatus:\nNot ready to publish yet — I’ll open-source it once the core map + layer system is stable.">
+                  Info
+                </button>
               </div>
-              <span class="li-right">Open</span>
-            </a>
-
-            <button
-              class="list-item list-item-btn"
-              type="button"
-              data-popup-title="RISC-V Coursework Project (Private)"
-              data-popup-body="Coursework project for a computer-architecture / low-level systems class (RISC-V).
-
-What I built (high-level):
-• Instruction decoding + execution flow (fetch → decode → execute)
-• A small CPU state model (registers, program counter, and flags/state)
-• Memory model basics (loads/stores + consistent state updates)
-• A test-first workflow: small cases, edge cases, then larger programs
-
-Why it’s private:
-University academic-integrity policy.
-
-If you want details:
-I can walk you through the architecture, show screenshots, and explain what I learned — without sharing restricted source code."
-            >
-              <div class="li-left">
-                <img class="li-icn-img" src="icons/puzzle.png" alt="">
-                <div>
-                  <div class="li-title">RISC-V Coursework Project (Private)</div>
-                  <div class="li-sub">Execution • instruction decoding • memory (private)</div>
-                </div>
-              </div>
-              <span class="li-right">Info</span>
-            </button>
-
-            <button
-              class="list-item list-item-btn"
-              type="button"
-              data-popup-title="Pacific Atlas (WIP)"
-              data-popup-body="Work in progress: a small interactive atlas focused on the Pacific.
-
-Planned features:
-• Island explorer cards (population, languages, history, fun facts)
-• Map layers: volcanoes, earthquakes (USGS), tectonic boundaries
-• Sea-level-rise “what if” toggles (+1m, +2m, +5m) using elevation data
-
-Goal:
-Build it incrementally with real datasets, clean UI, and fast interactions.
-
-Status:
-Not ready to publish yet — I’ll open-source it once the core map + layer system is stable."
-            >
-              <div class="li-left">
-                <img class="li-icn-img" src="icons/map.png" alt="">
-                <div>
-                  <div class="li-title">Pacific Atlas (WIP)</div>
-                  <div class="li-sub">Maps • data layers • interactive exploration</div>
-                </div>
-              </div>
-              <span class="li-right">Info</span>
-            </button>
+            </div>
           </div>
 
           <div class="statusbar">
@@ -312,8 +386,8 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
       </div>
     </section>
 
-    <!-- About -->
-    <section id="win-about" class="win" role="dialog" aria-label="About Me window" data-title="About Me" data-icon="icons/about.png" style="width:700px;height:420px;">
+    <!-- ABOUT -->
+    <section id="win-about" class="win" role="dialog" aria-label="About Me window" data-title="About Me" data-icon="icons/about.png" style="width:820px;height:520px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
           <img class="win-title-icn-img" src="icons/about.png" alt="">
@@ -326,14 +400,15 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
       </div>
 
       <div class="win-body">
-        <div class="panel pad">
+        <div class="panel pad about-page">
+
           <div class="about-hero">
             <div class="about-hero-text">
               <div class="kicker">about me</div>
               <h2 class="h2 big">Hello, I’m Abubakar Shaikh.</h2>
               <p class="muted" style="margin-top:6px;">
-                I study Computing Science with a major in Artificial Intelligence. I’m interested in how software works across layers —
-                from execution and memory, to data models, to system behavior in real projects.
+                I study Computing Science with a specialization in Artificial Intelligence, but my curiosity goes well beyond code.
+                I like understanding how things work — systems, people, places, and the small details that connect them.
               </p>
             </div>
 
@@ -343,32 +418,47 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
             </div>
           </div>
 
-          <div class="group">
-            <div class="group-title">What I focus on</div>
+          <div class="about-card">
+            <div class="group-title">How I think about building things</div>
             <ul class="bullets">
-              <li>Tracing behavior from input → state → output (and catching edge cases)</li>
+              <li>Tracing behavior from input → state → output, including edge cases</li>
               <li>Understanding how programs execute and use memory</li>
-              <li>Modeling data and querying it cleanly</li>
-              <li>Building applied projects that stay honest about constraints</li>
+              <li>Designing clear data models and querying them intentionally</li>
+              <li>Building projects that are honest about real-world constraints</li>
             </ul>
           </div>
 
-          <div class="group">
-            <div class="group-title">A note on AI</div>
-            <p class="muted" style="margin:6px 0 0;">
-              AI is my academic foundation, but I try to keep it grounded: clear assumptions, measurable results, and understanding the machinery underneath.
+          <div class="about-card about-callout">
+            <div class="group-title">Beyond computer science</div>
+            <p class="muted">
+              Outside of CS, I like staying active and hands-on. You’ll usually find me at a climbing gym, swimming,
+              or folding origami when I want to slow down and think differently.
+            </p>
+            <p class="muted" style="margin-bottom:0;">
+              I’m also drawn to maps, visual design, photography, and learning about places and cultures.
+              These interests influence how I approach software — I care about structure, flow, and how people actually experience what they’re using.
             </p>
           </div>
 
+          <div class="about-card">
+            <div class="group-title">A few things about me</div>
+            <ul class="bullets">
+              <li>I learn best by building, breaking, and fixing, especially tinkering</li>
+              <li>I like understanding the mechanics, not just abstractions</li>
+              <li>I value simple solutions that age well</li>
+              <li>I’m curious by default, even outside my comfort zone</li>
+            </ul>
+          </div>
+
           <div class="statusbar">
-            <span>about.txt</span>
-            <span class="status-right">Ready</span>
+            <span title="Interests outside CS are intentional.">Status: curious, building, refining</span>
+            <span class="status-right">Jan 2026 · Active session</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
+    <!-- SKILLS -->
     <section id="win-skills" class="win" role="dialog" aria-label="Skills window" data-title="Skills" data-icon="icons/skills.png" style="width:760px;height:430px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
@@ -398,35 +488,17 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
               <div class="group-title" style="margin-top:12px;">Systems &amp; execution</div>
               <div class="pill-grid">
                 <span class="pill">Memory + pointers</span>
-                <span class="pill">Concurrency (basics)</span>
                 <span class="pill">Debugging</span>
-                <span class="pill">Performance profiling</span>
-              </div>
-
-              <div class="group-title" style="margin-top:12px;">Data &amp; querying</div>
-              <div class="pill-grid">
-                <span class="pill">Data modeling</span>
-                <span class="pill">MongoDB aggregation</span>
-                <span class="pill">Relational algebra</span>
-                <span class="pill">Normalization (coursework)</span>
+                <span class="pill">Performance basics</span>
               </div>
             </div>
 
             <div>
-              <div class="group-title">Applied builds</div>
-              <div class="pill-grid">
-                <span class="pill">UI + interactions</span>
-                <span class="pill">APIs</span>
-                <span class="pill">Maps / geo features</span>
-                <span class="pill">CLI tools</span>
-              </div>
-
-              <div class="group-title" style="margin-top:12px;">Tooling</div>
+              <div class="group-title">Tooling</div>
               <div class="pill-grid">
                 <span class="pill">Git + GitHub</span>
                 <span class="pill">VS Code</span>
                 <span class="pill">Android Studio</span>
-                <span class="pill">Linux basics</span>
               </div>
 
               <div class="group-title" style="margin-top:12px;">AI (academic)</div>
@@ -444,7 +516,7 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
       </div>
     </section>
 
-    <!-- Experience -->
+    <!-- EXPERIENCE -->
     <section id="win-experience" class="win" role="dialog" aria-label="Experience window" data-title="Experience" data-icon="icons/Experience.png" style="width:760px;height:440px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
@@ -474,18 +546,6 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
                 </ul>
               </div>
             </div>
-
-            <div class="t-item">
-              <div class="t-when">Coursework</div>
-              <div class="t-what">
-                <div class="t-title">Systems, data, and AI foundations</div>
-                <div class="t-sub">Execution models • databases • algorithms • AI/RL</div>
-                <ul class="bullets">
-                  <li>Comfortable moving between “what should happen” and “what the machine is doing”</li>
-                  <li>Prefer concrete explanations: traces, invariants, tests, and measurable behavior</li>
-                </ul>
-              </div>
-            </div>
           </div>
 
           <div class="statusbar">
@@ -496,30 +556,29 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
       </div>
     </section>
 
-    <div id="modalBackdrop" class="backdrop" hidden aria-hidden="true"></div>
-
-    <!-- POPUP MODAL -->
-    <section id="popup" class="win popup" role="dialog" aria-modal="true" aria-label="Message" data-title="Message" data-icon="icons/info.png" style="width:520px;height:260px;">
+    <!-- INFO POPUP (NON-MODAL) -->
+    <section id="popup" class="win popup" role="dialog" aria-label="Project info" data-title="Info" data-icon="icons/info.png" style="width:560px;height:320px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
           <img class="win-title-icn-img" src="icons/info.png" alt="">
-          <span class="win-title-text" id="popupTitle">Message</span>
+          <span class="win-title-text" id="popupTitle">Info</span>
         </div>
         <div class="win-controls">
+          <button class="win-btn" data-action="minimize" aria-label="Minimize">_</button>
           <button class="win-btn" data-action="close" aria-label="Close">✕</button>
         </div>
       </div>
 
-      <div class="win-body">
+      <div class="win-body popup-body">
         <div class="panel pad">
-          <p id="popupBody" style="white-space:pre-line; margin-top:0;"></p>
+          <p id="popupBody" class="popup-text"></p>
 
           <div class="row" style="justify-content:flex-end; margin-top:10px;">
             <button class="ui-btn" type="button" id="popupClose">OK</button>
           </div>
 
           <div class="statusbar">
-            <span>Message</span>
+            <span>info.txt</span>
             <span class="status-right">Ready</span>
           </div>
         </div>
@@ -540,7 +599,7 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
       <span id="clock" class="clock">00:00</span>
     </div>
 
-    <!-- START MENU (links only) -->
+    <!-- START MENU -->
     <div id="startMenu" class="start-menu" hidden>
       <div class="start-menu-side">Windows 95</div>
       <div class="start-menu-main">
@@ -557,10 +616,11 @@ Not ready to publish yet — I’ll open-source it once the core map + layer sys
           <span>GitHub</span>
         </a>
         <div class="menu-sep"></div>
-        <a class="menu-item" href="assets/Abubakar_Shaikh_Resume.pdf" target="_blank" rel="noreferrer">
+
+        <button class="menu-item menu-item-btn" type="button" data-open="win-resume">
           <img class="menu-icon" src="icons/resume.png" alt="">
           <span>Resume</span>
-        </a>
+        </button>
       </div>
     </div>
   </footer>

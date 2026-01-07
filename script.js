@@ -1,6 +1,4 @@
-// Win95-ish window manager: open/close/minimize, drag, z-index focus,
-// desktop selection, start menu, taskbar, + double-click to open icons.
-const wins = new Map(); // id -> state
+const wins = new Map();
 let zTop = 20;
 
 let startBtnEl = null;
@@ -19,39 +17,47 @@ function init() {
   initStartMenu();
   initClock();
   initPopups();
-  openWin("win-notes", { right: true, top: 14 });
+  initGlobalOpenButtons();
+  initResumeMeta();
 
-  const notesEl = document.getElementById("win-notes");
-  if (notesEl) {
-    // Force layout recalculation so height fits content
-    notesEl.style.height = "auto";
-  }
+  // Open Notes + About by default
+  openWin("win-notes");
+  openWin("win-about");
+  setWinRect("win-about", { width: 900, height: 700, left: 180, top: 60 });
 
-  // Notes shortcuts (single-click)
-  $$("#win-notes .notes-chip[data-open]").forEach(btn => {
+  // pin Notes to right
+  repositionNotesRight();
+  window.addEventListener("resize", () => {
+    if (isWinOpen("win-notes")) repositionNotesRight();
+  });
+
+  // Notes chips open windows
+  $$("#win-notes [data-open]").forEach(btn => {
     btn.addEventListener("click", (e) => {
+      if (btn.tagName !== "BUTTON") return;
       e.preventDefault();
       e.stopPropagation();
       openWin(btn.dataset.open);
+      closeStartMenu();
     });
   });
 
-  // close start menu on global click (but not when clicking inside it)
+  // Close start menu on outside click
   document.addEventListener("click", (e) => {
     if (e.target.closest("#startMenu") || e.target.closest("#startBtn")) return;
     closeStartMenu();
   });
 
-  // keyboard: Esc closes active window or start menu
+  // ESC closes start menu or active window
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (!$("#startMenu")?.hasAttribute("hidden")) {
-        closeStartMenu();
-        return;
-      }
-      const active = $(".win.active");
-      if (active) closeWin(active.id);
+    if (e.key !== "Escape") return;
+
+    if (!$("#startMenu")?.hasAttribute("hidden")) {
+      closeStartMenu();
+      return;
     }
+    const active = $(".win.active");
+    if (active) closeWin(active.id);
   });
 }
 
@@ -71,12 +77,14 @@ function initWindows(){
       h: null
     });
 
-    // init position
     win.style.left = wins.get(id).x + "px";
     win.style.top  = wins.get(id).y + "px";
 
-    // control buttons
-    win.addEventListener("click", () => focusWin(id));
+    // focus when clicked
+    win.addEventListener("mousedown", (e) => {
+      e.stopPropagation();
+      focusWin(id);
+    });
 
     win.querySelectorAll("[data-action]").forEach(btn => {
       btn.addEventListener("click", (e) => {
@@ -87,7 +95,6 @@ function initWindows(){
       });
     });
 
-    // drag
     const handle = win.querySelector("[data-drag-handle]");
     if (handle) makeDraggable(win, handle);
   });
@@ -98,14 +105,12 @@ function initWindows(){
 function initDesktopIcons(){
   const desktop = $("#desktop");
 
-  // clear selection when clicking empty desktop space
   desktop.addEventListener("click", (e) => {
     if (e.target.closest(".win") || e.target.closest(".taskbar") || e.target.closest(".start-menu")) return;
     clearIconSelection();
     closeStartMenu();
   });
 
-  // icon select / open
   $$(".desk-icon[data-open]").forEach(icon => {
     icon.addEventListener("click", (e) => {
       e.preventDefault();
@@ -122,7 +127,6 @@ function initDesktopIcons(){
     });
   });
 
-  // keyboard: Enter opens selected icon
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter") return;
     const selected = $(".desk-icon.selected");
@@ -130,8 +134,25 @@ function initDesktopIcons(){
   });
 }
 
+function initGlobalOpenButtons(){
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-open]");
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    openWin(btn.dataset.open);
+    closeStartMenu();
+  });
+}
+
 function clearIconSelection(){
   $$(".desk-icon.selected").forEach(el => el.classList.remove("selected"));
+}
+
+function isWinOpen(id){
+  const win = $("#"+id);
+  return !!(win && win.classList.contains("open") && !win.classList.contains("minimized"));
 }
 
 function openWin(id, opts={}){
@@ -144,11 +165,20 @@ function openWin(id, opts={}){
   win.classList.add("open");
   win.classList.remove("minimized");
 
-  // initial sizing capture (optional)
   if (!st.w) st.w = win.offsetWidth;
   if (!st.h) st.h = win.offsetHeight;
 
-  // ensure on-screen
+  if (id === "win-notes") {
+    requestAnimationFrame(() => repositionNotesRight());
+  }
+
+  if (id === "win-resume") {
+    requestAnimationFrame(() => {
+      hydrateResumeViewer();
+      updateResumeMeta();
+    });
+  }
+
   if (opts.center) {
     const vw = window.innerWidth;
     const vh = window.innerHeight - 40;
@@ -158,26 +188,25 @@ function openWin(id, opts={}){
     win.style.top  = Math.max(6, (vh - h)/2) + "px";
   }
 
-  if (opts.right) {
-    const margin = (typeof opts.margin === "number") ? opts.margin : 14;
-    const top = (typeof opts.top === "number") ? opts.top : 14;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight - 40;
-    const w = win.offsetWidth;
-    const h = win.offsetHeight;
-    win.style.left = Math.max(6, vw - w - margin) + "px";
-    win.style.top  = Math.max(6, Math.min(top, vh - h - 6)) + "px";
-  }
-
   focusWin(id);
-
-  // modal behavior: hide from taskbar already handled, but we show backdrop here
-  if (opts.modal) {
-    $("#modalBackdrop").hidden = false;
-    $("#modalBackdrop").setAttribute("aria-hidden","false");
-  }
-
   renderTasks();
+}
+
+/* Force a window size + position (and keep internal state synced) */
+function setWinRect(id, { left, top, width, height } = {}) {
+  const win = document.getElementById(id);
+  const st = wins.get(id);
+  if (!win || !st) return;
+
+  if (typeof width === "number")  win.style.width  = width + "px";
+  if (typeof height === "number") win.style.height = height + "px";
+  if (typeof left === "number")   win.style.left   = left + "px";
+  if (typeof top === "number")    win.style.top    = top + "px";
+
+  st.x = parseFloat(win.style.left) || st.x;
+  st.y = parseFloat(win.style.top)  || st.y;
+  st.w = win.offsetWidth;
+  st.h = win.offsetHeight;
 }
 
 function closeWin(id){
@@ -188,8 +217,6 @@ function closeWin(id){
   st.open = false;
   st.minimized = false;
   win.classList.remove("open","minimized","active");
-
-  if (id === "popup") hidePopupBackdrop();
 
   renderTasks();
 }
@@ -210,11 +237,9 @@ function focusWin(id){
   const st = wins.get(id);
   if (!win || !st) return;
 
-  // bring to front
   zTop += 1;
   win.style.zIndex = zTop;
 
-  // active class
   $$(".win.active").forEach(w => w.classList.remove("active"));
   win.classList.add("active");
 
@@ -226,16 +251,14 @@ function renderTasks(){
   if (!tasksEl) return;
 
   tasksEl.innerHTML = "";
+  const openWins = [...wins.values()].filter(w => w.open);
 
-  // only non-popup windows go into taskbar
-  const openWins = [...wins.values()].filter(w => w.open && w.id !== "popup");
   openWins.forEach(w => {
     const btn = document.createElement("button");
     btn.className = "task";
     btn.type = "button";
     btn.dataset.win = w.id;
 
-    // icon (path or emoji)
     if (isIconPath(w.icon)) {
       const img = document.createElement("img");
       img.className = "task-icn";
@@ -245,7 +268,6 @@ function renderTasks(){
       btn.appendChild(img);
     } else {
       const spanI = document.createElement("span");
-      spanI.className = "task-emoji";
       spanI.textContent = w.icon;
       btn.appendChild(spanI);
     }
@@ -255,7 +277,6 @@ function renderTasks(){
     spanT.textContent = w.title;
     btn.appendChild(spanT);
 
-    // click: toggle minimize/focus
     btn.addEventListener("click", () => {
       const win = $("#"+w.id);
       if (!win) return;
@@ -268,7 +289,6 @@ function renderTasks(){
       }
     });
 
-    // mark active
     const winEl = $("#"+w.id);
     if (winEl?.classList.contains("active")) btn.classList.add("active");
 
@@ -276,7 +296,6 @@ function renderTasks(){
   });
 }
 
-/* Dragging */
 function makeDraggable(win, handle){
   let dragging = false;
   let startX = 0, startY = 0;
@@ -312,6 +331,23 @@ function makeDraggable(win, handle){
   }
 }
 
+/* Notes pinned right */
+function repositionNotesRight(){
+  const win = $("#win-notes");
+  if (!win) return;
+
+  const margin = 14;
+  const top = 14;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight - 40;
+
+  const w = win.offsetWidth || 640;
+  const h = win.offsetHeight || 380;
+
+  win.style.left = Math.max(6, vw - w - margin) + "px";
+  win.style.top  = Math.max(6, Math.min(top, vh - h - 6)) + "px";
+}
+
 /* Start menu */
 function initStartMenu(){
   startBtnEl = $("#startBtn");
@@ -330,16 +366,8 @@ function toggleStartMenu(){
   if (hidden) openStartMenu();
   else closeStartMenu();
 }
-
-function openStartMenu(){
-  if (!startMenuEl) return;
-  startMenuEl.removeAttribute("hidden");
-}
-
-function closeStartMenu(){
-  if (!startMenuEl) return;
-  startMenuEl.setAttribute("hidden","");
-}
+function openStartMenu(){ startMenuEl?.removeAttribute("hidden"); }
+function closeStartMenu(){ startMenuEl?.setAttribute("hidden",""); }
 
 /* Clock */
 function initClock(){
@@ -356,32 +384,98 @@ function initClock(){
   setInterval(tick, 1000 * 10);
 }
 
-/* Popups from Projects info buttons */
+/* Popups (Info) - NON MODAL, works for all buttons with data-popup-title */
 function initPopups(){
-  // buttons with data-popup-title/body open modal popup
-  $$(".list-item-btn[data-popup-title]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const title = btn.dataset.popupTitle || "Message";
-      const body  = btn.dataset.popupBody  || "";
-      showPopup(title, body);
-    });
+  // Event delegation: catches ALL current and future info buttons
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".info-btn[data-popup-title][data-popup-body]");
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    showPopup(btn.dataset.popupTitle || "Info", btn.dataset.popupBody || "");
   });
 
-  $("#popupClose")?.addEventListener("click", () => closeWin("popup"));
-  $("#modalBackdrop")?.addEventListener("click", () => closeWin("popup"));
+  $("#popupClose")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeWin("popup");
+  });
 }
 
 function showPopup(title, body){
-  $("#popupTitle").textContent = title;
-  $("#popupBody").textContent = body;
-  openWin("popup", { center: true, modal: true });
+  const titleEl = $("#popupTitle");
+  const bodyEl = $("#popupBody");
+  if (titleEl) titleEl.textContent = title;
+  if (bodyEl) bodyEl.textContent = body;
+
+  openWin("popup", { center: true });
 }
 
-function hidePopupBackdrop(){
-  const bd = $("#modalBackdrop");
-  if (!bd) return;
-  bd.hidden = true;
-  bd.setAttribute("aria-hidden","true");
+/* Resume meta */
+function initResumeMeta(){
+  updateResumeMeta();
+}
+
+function hydrateResumeViewer(){
+  const resumeWin = $("#win-resume");
+  if (!resumeWin) return;
+
+  const pdf = resumeWin.querySelector(".resume-body")?.dataset?.pdf || "assets/Abubakar_Shaikh_Resume.pdf";
+
+  const frame = $("#resumeFrame");
+  if (frame && frame.getAttribute("src") !== pdf) frame.setAttribute("src", pdf);
+
+  const openBtn = $("#resumeOpenNewTab");
+  const dlBtn = $("#resumeDownload");
+  if (openBtn) openBtn.href = pdf;
+  if (dlBtn) dlBtn.href = pdf;
+}
+
+async function updateResumeMeta(){
+  const resumeWin = $("#win-resume");
+  const pdf = resumeWin?.querySelector(".resume-body")?.dataset?.pdf || "assets/Abubakar_Shaikh_Resume.pdf";
+
+  const last = safeDate(document.lastModified);
+  const lastStr = last ? formatDateTime(last) : "Unknown";
+  const statusRight = $("#resumeStatusRight");
+  if (statusRight) statusRight.textContent = `Last updated: ${lastStr}`;
+
+  let sizeStr = "…";
+  try {
+    const res = await fetch(pdf, { method: "HEAD", cache: "no-store" });
+    const len = res.headers.get("content-length");
+    if (len) sizeStr = humanBytes(Number(len));
+  } catch {}
+
+  const line = sizeStr === "…" ? "PDF" : `PDF • ${sizeStr}`;
+
+  $("#resumeInfoLine") && ($("#resumeInfoLine").textContent = line);
+  $("#resumeStatusLeft") && ($("#resumeStatusLeft").textContent = line);
+  $("#resumeMeta") && ($("#resumeMeta").textContent = `(${line})`);
+}
+
+function humanBytes(bytes){
+  if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
+  const units = ["B","KB","MB","GB"];
+  let i = 0;
+  let n = bytes;
+  while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
+  const digits = i === 0 ? 0 : (i === 1 ? 1 : 2);
+  return `${n.toFixed(digits)} ${units[i]}`;
+}
+
+function safeDate(v){
+  const d = new Date(v);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+function formatDateTime(d){
+  const date = d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+  const time = d.toLocaleTimeString(undefined, { hour:"2-digit", minute:"2-digit" });
+  return `${date} ${time}`;
 }
 
 document.addEventListener("DOMContentLoaded", init);
