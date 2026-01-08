@@ -66,7 +66,7 @@ No build step. No dependencies.
 | ├─ fonts/ #font  
 | ├─ images/ # Wallpaper and profile image  
 | ├─ icons/ # Desktop, menu, and UI icons  
-| └─ Abubakar_Shaikh_Resume.pdf  fonts/ #font
+| └─ Abubakar_Shaikh_Resume.pdf  
 ├─ index.html # Main markup and window layout  
 ├─ styles.css # All styling (Win95/98 look and layout)  
 └─ script.js # Window manager, interactions, state  
