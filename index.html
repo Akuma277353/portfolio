@@ -3,62 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Abubakar Shaikh — Win95 Portfolio</title>
-  <meta name="description" content="Windows 95 style portfolio website." />
+  <title>Abubakar Shaikh's Portfolio</title>
+  <meta name="description" content="Windows 95/98 style portfolio website." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- DESKTOP -->
-  <main id="desktop" class="desktop" aria-label="Desktop">
-    <!-- Desktop Icons (order you requested) -->
-    <button class="desk-icon" data-open="win-notes" aria-label="Open Notes">
-      <img class="desk-icon-img" src="icons/Notes.png" alt="" onerror="this.style.display='none'">
+  <main id="desktop" class="desktop">
+    <button class="desk-icon" data-open="win-notes">
+      <img class="desk-icon-img" src="assets/icons/Notes.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Notes</div>
     </button>
 
-    <button class="desk-icon" data-open="win-about" aria-label="Open About Me">
-      <img class="desk-icon-img" src="icons/about.png" alt="" onerror="this.style.display='none'">
+    <button class="desk-icon" data-open="win-about">
+      <img class="desk-icon-img" src="assets/icons/about.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">About Me</div>
     </button>
 
-    <button class="desk-icon" data-open="win-skills" aria-label="Open Skills">
-      <img class="desk-icon-img" src="icons/skills.png" alt="" onerror="this.style.display='none'">
+    <button class="desk-icon" data-open="win-skills">
+      <img class="desk-icon-img" src="assets/icons/skills.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Skills</div>
     </button>
 
-    <button class="desk-icon" data-open="win-projects" aria-label="Open Projects">
-      <img class="desk-icon-img" src="icons/Projects.png" alt="" onerror="this.style.display='none'">
+    <button class="desk-icon" data-open="win-projects">
+      <img class="desk-icon-img" src="assets/icons/Projects.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Projects</div>
     </button>
 
-    <button class="desk-icon" data-open="win-experience" aria-label="Open Experience">
-      <img class="desk-icon-img" src="icons/Experience.png" alt="" onerror="this.style.display='none'">
+    <button class="desk-icon" data-open="win-experience">
+      <img class="desk-icon-img" src="assets/icons/Experience.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Experience</div>
     </button>
 
-    <button class="desk-icon" data-open="win-resume" aria-label="Open Resume">
-      <img class="desk-icon-img" src="icons/resume.png" alt="" onerror="this.style.display='none'">
+    <button class="desk-icon" data-open="win-resume">
+      <img class="desk-icon-img" src="assets/icons/resume.png" alt="" onerror="this.style.display='none'">
       <div class="desk-icon-label">Resume</div>
     </button>
 
-    <button class="desk-icon" data-open="win-contact" aria-label="Open Contact">
-      <img class="desk-icon-img" src="icons/contact.png" alt="">
+    <button class="desk-icon" data-open="win-contact">
+      <img class="desk-icon-img" src="assets/icons/contact.png" alt="">
       <div class="desk-icon-label">Contact</div>
     </button>
 
-    <!-- CONTACT -->
-    <section id="win-contact"
-      class="win win-auto"
-      role="dialog"
-      aria-label="Contact window"
-      data-title="Contact"
-      data-icon="icons/contact.png"
-      style="width:520px;">
-
+    <section id="win-contact" class="win win-auto" role="dialog" aria-label="Contact window" data-title="Contact" data-icon="assets/icons/contact.png" style="width:520px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/contact.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/contact.png" alt="">
           <span class="win-title-text">Contact</span>
         </div>
         <div class="win-controls">
@@ -78,14 +68,14 @@
               </p>
             </div>
             <div class="contact-badge" aria-hidden="true">
-              <img src="icons/contact.png" alt="">
+              <img src="assets/icons/contact.png" alt="">
             </div>
           </div>
 
           <div class="contact-grid">
             <a class="contact-card" href="mailto:abu2012only@gmail.com">
               <div class="cc-top">
-                <img class="cc-icn" src="icons/contact.png" alt="" onerror="this.style.display='none'">
+                <img class="cc-icn" src="assets/icons/email.png" alt="" onerror="this.style.display='none'">
                 <div>
                   <div class="cc-title">Email</div>
                   <div class="cc-sub">abu2012only@gmail.com</div>
@@ -96,7 +86,7 @@
 
             <a class="contact-card" href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">
               <div class="cc-top">
-                <img class="cc-icn" src="icons/Github.webp" alt="" onerror="this.style.display='none'">
+                <img class="cc-icn" src="assets/icons/Github.webp" alt="" onerror="this.style.display='none'">
                 <div>
                   <div class="cc-title">GitHub</div>
                   <div class="cc-sub">@Akuma277353</div>
@@ -107,7 +97,7 @@
 
             <a class="contact-card" href="https://www.linkedin.com/in/abu-shaikh" target="_blank" rel="noreferrer">
               <div class="cc-top">
-                <img class="cc-icn" src="icons/Linkedin.webp" alt="" onerror="this.style.display='none'">
+                <img class="cc-icn" src="assets/icons/Linkedin.webp" alt="" onerror="this.style.display='none'">
                 <div>
                   <div class="cc-title">LinkedIn</div>
                   <div class="cc-sub">/in/abu-shaikh</div>
@@ -117,9 +107,7 @@
             </a>
           </div>
 
-          <div class="contact-foot muted">
-            Tip: these are also in the Start menu.
-          </div>
+          <div class="contact-foot muted">Tip: these are also in the Start menu.</div>
 
           <div class="statusbar">
             <span>contact.txt</span>
@@ -129,11 +117,10 @@
       </div>
     </section>
 
-    <!-- NOTES -->
-    <section id="win-notes" class="win win-auto" role="dialog" aria-label="Notes window" data-title="Notes" data-icon="icons/Notes.png" style="width:640px;height:380px;">
+    <section id="win-notes" class="win win-auto" role="dialog" aria-label="Notes window" data-title="Notes" data-icon="assets/icons/Notes.png" style="width:640px;height:380px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="menu-icon" src="icons/Notes.png" alt="">
+          <img class="menu-icon" src="assets/icons/Notes.png" alt="">
           <span class="win-title-text">Notes</span>
         </div>
         <div class="win-controls">
@@ -159,26 +146,23 @@
             Some features may be incomplete or change over time.
           </div>
 
-          <p class="muted" style="margin-top:8px;">
-            Click any folder to explore:
-          </p>
+          <p class="muted" style="margin-top:8px;">Click any folder to explore:</p>
 
           <div class="notes-grid">
-            <button class="notes-chip" type="button" data-open="win-about"><img class="chip-icn" src="icons/about.png" alt="">about me -> who I am</button>
-            <button class="notes-chip" type="button" data-open="win-skills"><img class="chip-icn" src="icons/skills.png" alt="">skills -> how I build</button>
-            <button class="notes-chip" type="button" data-open="win-projects"><img class="chip-icn" src="icons/Projects.png" alt="">projects -> stuff I built</button>
-            <button class="notes-chip" type="button" data-open="win-experience"><img class="chip-icn" src="icons/Experience.png" alt="">experience -> what I’ve worked on</button>
+            <button class="notes-chip" type="button" data-open="win-about"><img class="chip-icn" src="assets/icons/about.png" alt="">about me -> who I am</button>
+            <button class="notes-chip" type="button" data-open="win-skills"><img class="chip-icn" src="assets/icons/skills.png" alt="">skills -> how I build</button>
+            <button class="notes-chip" type="button" data-open="win-projects"><img class="chip-icn" src="assets/icons/Projects.png" alt="">projects -> stuff I built</button>
+            <button class="notes-chip" type="button" data-open="win-experience"><img class="chip-icn" src="assets/icons/Experience.png" alt="">experience -> what I’ve worked on</button>
 
-            <!-- NOTE: Download button removed from Notes (as requested) -->
             <button class="notes-chip" type="button" data-open="win-resume">
-              <img class="chip-icn" src="icons/resume.png" alt="">
+              <img class="chip-icn" src="assets/icons/resume.png" alt="">
               resume -> pdf <span class="chip-meta" id="resumeMeta">(PDF • …)</span>
             </button>
 
-            <button class="notes-chip" type="button" data-open="win-contact"><img class="chip-icn" src="icons/contact.png" alt="">contact -> reach me</button>
+            <button class="notes-chip" type="button" data-open="win-contact"><img class="chip-icn" src="assets/icons/contact.png" alt="">contact -> reach me</button>
           </div>
 
-          <hr class="rule"/>
+          <hr class="rule" />
 
           <p style="margin:0;">
             <strong>Quick vibe:</strong> Computing Science (AI) student curious about how software works end-to-end — from execution and data to real-world constraints.
@@ -192,11 +176,10 @@
       </div>
     </section>
 
-    <!-- RESUME -->
-    <section id="win-resume" class="win" role="dialog" aria-label="Resume window" data-title="Resume" data-icon="icons/resume.png" style="width:820px;height:520px;">
+    <section id="win-resume" class="win" role="dialog" aria-label="Resume window" data-title="Resume" data-icon="assets/icons/resume.png" style="width:820px;height:520px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/resume.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/resume.png" alt="">
           <span class="win-title-text">Resume</span>
         </div>
         <div class="win-controls">
@@ -216,7 +199,7 @@
         <div class="panel pad">
           <div class="resume-toolbar">
             <div class="resume-left">
-              <img class="li-icn-img" src="icons/resume.png" alt="">
+              <img class="li-icn-img" src="assets/icons/resume.png" alt="">
               <div>
                 <div class="li-title">Abubakar_Shaikh_Resume.pdf</div>
                 <div class="li-sub" id="resumeInfoLine">PDF • …</div>
@@ -229,13 +212,8 @@
             </div>
           </div>
 
-          <div class="resume-viewer-wrap" aria-label="Resume PDF viewer">
-            <iframe
-              id="resumeFrame"
-              title="Resume PDF"
-              class="resume-frame"
-              src="assets/Abubakar_Shaikh_Resume.pdf"
-              loading="lazy"></iframe>
+          <div class="resume-viewer-wrap">
+            <iframe id="resumeFrame" class="resume-frame" title="Resume PDF Viewer"></iframe>
           </div>
 
           <div class="statusbar">
@@ -246,11 +224,10 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="icons/Projects.png" style="width:780px;height:460px;">
+    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="assets/icons/Projects.png" style="width:860px;height:520px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/Projects.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/Projects.png" alt="">
           <span class="win-title-text">Projects</span>
         </div>
         <div class="win-controls">
@@ -274,11 +251,10 @@
           </div>
 
           <div class="list" id="projectsList">
-            <!-- 1 -->
             <div class="proj-item">
               <a class="proj-main" href="https://github.com/CMPUT301F25aurora/aurora-borealis" target="_blank" rel="noreferrer">
                 <div class="li-left">
-                  <img class="li-icn-img" src="icons/star.png" alt="">
+                  <img class="li-icn-img" src="assets/icons/star.png" alt="">
                   <div>
                     <div class="li-title">AuroraChance — Event Lottery System</div>
                     <div class="li-sub">Android team project: event signups, lotteries, notifications, and consistent state handling.</div>
@@ -291,24 +267,23 @@
                   data-popup-title="AuroraChance — Event Lottery System"
                   data-popup-body="A community event lottery app built in a team setting.
 
-                  Highlights:
-                  • Role-based flows (entrant/organizer/admin)
-                  • Lottery + waiting list logic (fair selection + predictable outcomes)
-                  • Notifications + user actions that stay consistent
-                  • Real-world edge cases: duplicates, timing, invalid states
-                  
-                  What I focused on:
-                  Building features end-to-end, keeping behavior consistent, and debugging UI/state issues in a real codebase.">
+Highlights:
+• Role-based flows (entrant/organizer/admin)
+• Lottery + waiting list logic (fair selection + predictable outcomes)
+• Notifications + user actions that stay consistent
+• Real-world edge cases: duplicates, timing, invalid states
+
+What I focused on:
+Building features end-to-end, keeping behavior consistent, and debugging UI/state issues in a real codebase.">
                   Info
                 </button>
               </div>
             </div>
 
-            <!-- 2 -->
             <div class="proj-item">
               <a class="proj-main" href="https://github.com/Akuma277353/RayTrace_3Drender" target="_blank" rel="noreferrer">
                 <div class="li-left">
-                  <img class="li-icn-img" src="icons/purple.png" alt="">
+                  <img class="li-icn-img" src="assets/icons/purple.png" alt="">
                   <div>
                     <div class="li-title">C Ray Tracer — Sphere Renderer</div>
                     <div class="li-sub">C renderer: ray-sphere intersections, shading basics, and performance-aware loops.</div>
@@ -320,25 +295,24 @@
                 <button class="ui-btn info-btn" type="button"
                   data-popup-title="C Ray Tracer — Sphere Renderer"
                   data-popup-body="A small ray tracer written in C.
-                  
-                  Highlights:
-                  • Ray–sphere intersection math
-                  • Basic shading (surface normals + light direction)
-                  • Tight loops + careful memory use
-                  • Output as an image render pipeline
-                  
-                  Why it matters:
-                  It forced me to balance math correctness, performance, and low-level debugging.">
+
+Highlights:
+• Ray–sphere intersection math
+• Basic shading (surface normals + light direction)
+• Tight loops + careful memory use
+• Output as an image render pipeline
+
+Why it matters:
+It forced me to balance math correctness, performance, and low-level debugging.">
                   Info
                 </button>
               </div>
             </div>
 
-            <!-- 3 -->
             <div class="proj-item">
               <a class="proj-main" href="https://github.com/Akuma277353/ReviewQuery" target="_blank" rel="noreferrer">
                 <div class="li-left">
-                  <img class="li-icn-img" src="icons/chart.png" alt="">
+                  <img class="li-icn-img" src="assets/icons/chart.png" alt="">
                   <div>
                     <div class="li-title">ReviewQuery — Review Data Explorer</div>
                     <div class="li-sub">Data exploration: filtering, aggregations, and sanity-checking results.</div>
@@ -350,23 +324,23 @@
                 <button class="ui-btn info-btn" type="button"
                   data-popup-title="ReviewQuery — Review Data Explorer"
                   data-popup-body="A small project focused on querying and exploring review datasets.
-                  
-                  Highlights:
-                  • Transparent query logic you can debug\n• Aggregations (grouping, counts, averages)
-                  • Data sanity checks (bad rows, missing fields)
-                  
-                  Goal:
-                  Make exploration fast while keeping the logic explainable.">
+
+Highlights:
+• Transparent query logic you can debug
+• Aggregations (grouping, counts, averages)
+• Data sanity checks (bad rows, missing fields)
+
+Goal:
+Make exploration fast while keeping the logic explainable.">
                   Info
                 </button>
               </div>
             </div>
 
-            <!-- 4 (Private) -->
             <div class="proj-item">
               <div class="proj-main proj-main-static" role="group" aria-label="RISC-V Coursework Project">
                 <div class="li-left">
-                  <img class="li-icn-img" src="icons/puzzle.png" alt="">
+                  <img class="li-icn-img" src="assets/icons/puzzle.png" alt="">
                   <div>
                     <div class="li-title">RISC-V Coursework Project (Private)</div>
                     <div class="li-sub">Private coursework: instruction decode/execution and a small CPU state model.</div>
@@ -378,26 +352,25 @@
                   data-popup-title="RISC-V Coursework Project (Private)"
                   data-popup-body="Coursework project for RISC-V / computer architecture.
 
-                  What I built (high-level):
-                  • Instruction decode + execute flow (fetch -> decode -> execute)
-                  • CPU state model (registers, PC, consistent updates)
-                  • Memory ops (loads/stores + correctness checks)
-                  • Testing workflow (small cases -> edge cases)
-                  
-                  Why it’s private:
-                  Academic-integrity policy.
-                  
-                  I can still explain the architecture + and share the private repo link on request.">
+What I built (high-level):
+• Instruction decode + execute flow (fetch -> decode -> execute)
+• CPU state model (registers, PC, consistent updates)
+• Memory ops (loads/stores + correctness checks)
+• Testing workflow (small cases -> edge cases)
+
+Why it’s private:
+Academic-integrity policy.
+
+I can still explain the architecture and share a private repo link on request.">
                   Info
                 </button>
               </div>
             </div>
 
-            <!-- 5 (WIP) -->
             <div class="proj-item">
               <div class="proj-main proj-main-static" role="group" aria-label="Pacific Atlas">
                 <div class="li-left">
-                  <img class="li-icn-img" src="icons/map.png" alt="">
+                  <img class="li-icn-img" src="assets/icons/map.png" alt="">
                   <div>
                     <div class="li-title">Pacific Atlas (WIP)</div>
                     <div class="li-sub">WIP mapping project: interactive layers (quakes, volcanoes) + island explorer.</div>
@@ -408,17 +381,47 @@
                 <button class="ui-btn info-btn" type="button"
                   data-popup-title="Pacific Atlas (WIP)"
                   data-popup-body="Work in progress: an interactive atlas focused on the Pacific.
-                  
-                  Planned features:
-                  • Island explorer cards (population, languages, history)
-                  • Map layers: volcanoes, earthquakes (USGS), tectonic boundaries
-                  • Sea-level-rise toggles (+1m, +2m, +5m) using elevation data
-                  
-                  Goal:
-                  Build it incrementally with real datasets and fast interactions.
-                  
-                  Status:
-                  Not ready to publish yet — I’ll open-source it once the core map + layer system is stable.">
+
+Planned features:
+• Island explorer cards (population, languages, history)
+• Map layers: volcanoes, earthquakes (USGS), tectonic boundaries
+• Sea-level-rise toggles (+1m, +2m, +5m) using elevation data
+
+Goal:
+Build it incrementally with real datasets and fast interactions.
+
+Status:
+Not ready to publish yet — I’ll open-source it once the core map + layer system is stable.">
+                  Info
+                </button>
+              </div>
+            </div>
+
+            <div class="proj-item">
+              <a class="proj-main" href="https://github.com/akuma277353/portfolio" target="_blank" rel="noreferrer">
+                <div class="li-left">
+                  <img class="li-icn-img" src="assets/icons/portfoliop.png" alt="" onerror="this.style.display='none'">
+                  <div>
+                    <div class="li-title">Win95/98 Portfolio Website — This Site</div>
+                    <div class="li-sub">Vanilla HTML/CSS/JS: window manager, taskbar, start menu, and non-modal info popups.</div>
+                  </div>
+                </div>
+              </a>
+              <div class="proj-actions">
+                <a class="ui-btn" href="https://github.com/akuma277353/portfolio" target="_blank" rel="noreferrer">Open</a>
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="Win95/98 Portfolio Website — This Site"
+                  data-popup-body="The portfolio you’re looking at right now.
+
+Highlights:
+• Win95/98-style window chrome (drag, resize, focus, minimize)
+• Taskbar buttons for open windows
+• Start menu (external links + internal windows)
+• Project ‘Info’ windows are non-modal (no dim overlay)
+• Mobile-friendly fallback (windows become full-screen)
+
+Why I built it:
+I wanted a portfolio that feels like a tiny operating system — fun, but still readable and practical.">
                   Info
                 </button>
               </div>
@@ -426,18 +429,17 @@
           </div>
 
           <div class="statusbar">
-            <span>5 item(s)</span>
+            <span>6 item(s)</span>
             <span class="status-right">Ready</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="win-about" class="win" role="dialog" aria-label="About Me window" data-title="About Me" data-icon="icons/about.png" style="width:820px;height:520px;">
+    <section id="win-about" class="win" role="dialog" aria-label="About Me window" data-title="About Me" data-icon="assets/icons/about.png" style="width:980px;height:640px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/about.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/about.png" alt="">
           <span class="win-title-text">About Me</span>
         </div>
         <div class="win-controls">
@@ -448,53 +450,62 @@
 
       <div class="win-body">
         <div class="panel pad about-page">
+          <div class="about-shell">
+            <aside class="about-side">
+              <div class="dotframe about-id">
+                <div class="kicker">about me</div>
 
-          <div class="about-hero">
-            <div class="about-hero-text">
-              <div class="kicker">about me</div>
-              <h2 class="h2 big">Hello, I’m Abubakar Shaikh.</h2>
-              <p class="muted" style="margin-top:6px;">
-                I study Computing Science with a specialization in Artificial Intelligence, but my curiosity goes well beyond code.
-                I like understanding how things work — systems, people, places, and the small details that connect them.
-              </p>
-            </div>
+                <div class="avatar-wrap" aria-label="Profile photo">
+                  <img class="avatar" src="assets/images/profile.jpg" alt="Portrait of Abubakar (profile photo)"
+                       onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');">
+                </div>
 
-            <div class="avatar-wrap" aria-label="Profile photo">
-              <img class="avatar" src="images/profile.jpg" alt="Portrait of Abubakar (profile photo)"
-                   onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');">
-            </div>
-          </div>
+                <div class="scan-rule"></div>
 
-          <div class="about-card">
-            <div class="group-title">How I think about building things</div>
-            <ul class="bullets">
-              <li>Tracing behavior from input -> state -> output, including edge cases</li>
-              <li>Understanding how programs execute and use memory</li>
-              <li>Designing clear data models and querying them intentionally</li>
-              <li>Building projects that are honest about real-world constraints</li>
-            </ul>
-          </div>
+                <p class="muted" style="margin:0;">
+                  I study Computing Science with a specialization in Artificial Intelligence, but my curiosity goes well beyond code.
+                  I like understanding how things work — systems, people, places, and the small details that connect them.
+                </p>
+              </div>
+            </aside>
 
-          <div class="about-card about-callout">
-            <div class="group-title">Beyond computer science</div>
-            <p class="muted">
-              Outside of CS, I like staying active and hands-on. You’ll usually find me at a climbing gym, swimming,
-              or folding origami when I want to slow down and think differently.
-            </p>
-            <p class="muted" style="margin-bottom:0;">
-              I’m also drawn to maps, visual design, photography, and learning about places and cultures.
-              These interests influence how I approach software — I care about structure, flow, and how people actually experience what they’re using.
-            </p>
-          </div>
+            <section class="about-main" aria-label="About content">
+              <div class="about-card about-card-dot">
+                <h2 class="group-title ascii" style="margin:0;">Hello, I’m Abubakar Shaikh.</h2>
+              </div>
 
-          <div class="about-card">
-            <div class="group-title">A few things about me</div>
-            <ul class="bullets">
-              <li>I learn best by building, breaking, and fixing, especially tinkering</li>
-              <li>I like understanding the mechanics, not just abstractions</li>
-              <li>I value simple solutions that age well</li>
-              <li>I’m curious by default, even outside my comfort zone</li>
-            </ul>
+              <div class="about-card about-card-dot">
+                <div class="group-title ascii">How I think about building things</div>
+                <ul class="bullets">
+                  <li>Tracing behavior from input -> state -> output, including edge cases</li>
+                  <li>Understanding how programs execute and use memory</li>
+                  <li>Designing clear data models and querying them intentionally</li>
+                  <li>Building projects that are honest about real-world constraints</li>
+                </ul>
+              </div>
+
+              <div class="about-card about-card-dot">
+                <div class="group-title ascii">Beyond computer science</div>
+                <p class="muted">
+                  Outside of CS, I like staying active and hands-on. You’ll usually find me at a climbing gym, swimming,
+                  or folding origami when I want to slow down and think differently.
+                </p>
+                <p class="muted" style="margin-bottom:0;">
+                  I’m also drawn to maps, visual design, photography, and learning about places and cultures.
+                  These interests influence how I approach software — I care about structure, flow, and how people actually experience what they’re using.
+                </p>
+              </div>
+
+              <div class="about-card about-card-dot">
+                <div class="group-title ascii">A few things about me</div>
+                <ul class="bullets">
+                  <li>I learn best by building, breaking, and fixing, especially tinkering</li>
+                  <li>I like understanding the mechanics, not just abstractions</li>
+                  <li>I value simple solutions that age well</li>
+                  <li>I’m curious by default, even outside my comfort zone</li>
+                </ul>
+              </div>
+            </section>
           </div>
 
           <div class="statusbar">
@@ -505,11 +516,10 @@
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="win-skills" class="win" role="dialog" aria-label="Skills window" data-title="Skills" data-icon="icons/skills.png" style="width:760px;height:430px;">
+    <section id="win-skills" class="win" role="dialog" aria-label="Skills window" data-title="Skills" data-icon="assets/icons/skills.png" style="width:760px;height:430px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/skills.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/skills.png" alt="">
           <span class="win-title-text">Skills</span>
         </div>
         <div class="win-controls">
@@ -521,7 +531,6 @@
       <div class="win-body">
         <div class="panel pad">
           <div class="skills-grid">
-
             <div class="skills-group">
               <div class="skills-head">Programming languages</div>
               <div class="pill-grid">
@@ -572,7 +581,6 @@
                 <span class="pill">Neural Networks (intro)</span>
               </div>
             </div>
-
           </div>
 
           <div class="statusbar">
@@ -583,11 +591,10 @@
       </div>
     </section>
 
-    <!-- EXPERIENCE -->
-    <section id="win-experience" class="win" role="dialog" aria-label="Experience window" data-title="Experience" data-icon="icons/Experience.png" style="width:760px;height:440px;">
+    <section id="win-experience" class="win" role="dialog" aria-label="Experience window" data-title="Experience" data-icon="assets/icons/Experience.png" style="width:760px;height:440px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/Experience.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/Experience.png" alt="">
           <span class="win-title-text">Experience</span>
         </div>
         <div class="win-controls">
@@ -607,9 +614,51 @@
                 <div class="t-title">AuroraChance</div>
                 <div class="t-sub">Applied software • consistency • edge cases</div>
                 <ul class="bullets">
-                  <li>Built features end-to-end and focused on state, errors, and predictable behavior</li>
-                  <li>Worked through timing and multi-user interactions to keep outcomes consistent</li>
-                  <li>Learned how data-model decisions show up later as bugs (or as clean flows)</li>
+                  <li>Built an Android platform using probabilistic lottery sampling to fairly allocate high-demand events.</li>
+                  <li>Implemented real-time sync with Firebase Firestore across entrants, organizers, and admins under concurrent updates.</li>
+                  <li>Designed core data models (events, users, waitlists, notifications) to enforce predictable state and avoid race conditions.</li>
+                  <li>Integrated Google Maps SDK and Places API for location validation and map-based interaction.</li>
+                  <li>Collaborated via GitHub workflows and Agile Kanban to deliver 45+ user stories.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Personal project</div>
+              <div class="t-what">
+                <div class="t-title">Win95/98 Portfolio Website</div>
+                <div class="t-sub">UI polish • interaction design • vanilla JS</div>
+                <ul class="bullets">
+                  <li>Implemented a desktop-style window system with open, minimize, and close behavior tied to a taskbar.</li>
+                  <li>Built draggable and resizable windows with explicit z-index control and active-window tracking.</li>
+                  <li>Added non-modal info panels to avoid background dimming and scroll locking.</li>
+                  <li>Managed global UI state and event handling to keep interactions predictable.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Foundations</div>
+              <div class="t-what">
+                <div class="t-title">Systems & data</div>
+                <div class="t-sub">execution · debugging · data thinking</div>
+                <ul class="bullets">
+                  <li>Worked with low-level execution ideas (state, memory, and step-by-step correctness)</li>
+                  <li>Built comfort with data modeling + querying (relational concepts + practical DB workflows)</li>
+                  <li>Got used to validating results with small tests first, then edge cases</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="t-item">
+              <div class="t-when">Foundations</div>
+              <div class="t-what">
+                <div class="t-title">ML / RL</div>
+                <div class="t-sub">evaluation · baselines · debugging</div>
+                <ul class="bullets">
+                  <li>Turned loosely defined problems into inputs, outputs, and evaluation metrics</li>
+                  <li>Implemented and debugged learning algorithms with careful training and evaluation checks</li>
+                  <li>Started from simple, explainable baselines before adding complexity</li>
                 </ul>
               </div>
             </div>
@@ -623,11 +672,10 @@
       </div>
     </section>
 
-    <!-- INFO POPUP (NON-MODAL) -->
-    <section id="popup" class="win popup" role="dialog" aria-label="Project info" data-title="Info" data-icon="icons/info.png" style="width:560px;height:320px;">
+    <section id="popup" class="win popup" role="dialog" aria-label="Project info" data-title="Info" data-icon="assets/icons/info.png" style="width:560px;height:320px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
-          <img class="win-title-icn-img" src="icons/info.png" alt="">
+          <img class="win-title-icn-img" src="assets/icons/info.png" alt="">
           <span class="win-title-text" id="popupTitle">Info</span>
         </div>
         <div class="win-controls">
@@ -653,39 +701,38 @@
     </section>
   </main>
 
-  <!-- TASKBAR -->
-  <footer class="taskbar" aria-label="Taskbar">
+  <footer class="taskbar">
     <button id="startBtn" class="start" type="button" aria-haspopup="true" aria-controls="startMenu">
-      <img class="start-icn-img" src="icons/windows.png" alt="">
+      <img class="start-icn-img" src="assets/icons/windows.png" alt="">
       <span>Start</span>
     </button>
 
-    <div id="tasks" class="tasks" aria-label="Open windows"></div>
+    <div id="tasks" class="tasks"></div>
 
-    <div class="tray" aria-label="System tray">
+    <div class="tray">
       <span id="clock" class="clock">00:00</span>
     </div>
 
-    <!-- START MENU -->
     <div id="startMenu" class="start-menu" hidden>
       <div class="start-menu-side">Windows 95</div>
       <div class="start-menu-main">
         <a class="menu-item" href="https://instagram.com/abu._.shaikh" target="_blank" rel="noreferrer">
-          <img class="menu-icon" src="icons/Instagram.webp" alt="">
+          <img class="menu-icon" src="assets/icons/Instagram.webp" alt="">
           <span>Instagram</span>
         </a>
         <a class="menu-item" href="https://www.linkedin.com/in/abu-shaikh" target="_blank" rel="noreferrer">
-          <img class="menu-icon" src="icons/Linkedin.webp" alt="">
+          <img class="menu-icon" src="assets/icons/Linkedin.webp" alt="">
           <span>LinkedIn</span>
         </a>
         <a class="menu-item" href="https://github.com/Akuma277353" target="_blank" rel="noreferrer">
-          <img class="menu-icon" src="icons/Github.webp" alt="">
+          <img class="menu-icon" src="assets/icons/Github.webp" alt="">
           <span>GitHub</span>
         </a>
+
         <div class="menu-sep"></div>
 
         <button class="menu-item menu-item-btn" type="button" data-open="win-resume">
-          <img class="menu-icon" src="icons/resume.png" alt="">
+          <img class="menu-icon" src="assets/icons/resume.png" alt="">
           <span>Resume</span>
         </button>
       </div>

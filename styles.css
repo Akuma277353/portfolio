@@ -1,6 +1,6 @@
 @font-face{
   font-family:"W95";
-  src:url("fonts/w95.woff2") format("woff2");
+  src:url("assets/fonts/w95.woff2") format("woff2");
   font-weight:normal;
   font-style:normal;
   font-display:swap;
@@ -26,7 +26,7 @@ body{
   color:#000;
 
   /* wallpaper */
-  background: url("images/wallpaper.jpg") center/cover no-repeat fixed;
+  background: url("assets/images/wallpaper.jpg") center/cover no-repeat fixed;
 
   /* keeps icons readable if wallpaper is busy */
   overflow:hidden;
@@ -240,16 +240,6 @@ a{ color:inherit; }
 
 /* Notes */
 .notes{ background: var(--paper); }
-
-.notes-dotbox{
-  background:#fff;
-  border:1px dotted #7f7f7f;
-  padding:10px;
-  margin:10px 0;
-}
-.notes-dotbox:first-child{ margin-top:0; }
-.notes-lead{ font-size:13px; }
-
 .notes-banner{
   font-weight:900;
   text-align:center;
@@ -320,11 +310,6 @@ a{ color:inherit; }
 }
 
 /* About hero */
-.about-hero{
-  display:flex;
-  align-items:center;
-  gap:16px;
-}
 .kicker{
   font-size:12px;
   letter-spacing:.5px;
@@ -351,7 +336,6 @@ a{ color:inherit; }
   object-fit:cover;
   display:block;
 }
-
 /* About page polish */
 .about-page p{ line-height:1.55; }
 .about-page .muted{ opacity:.88; }
@@ -369,20 +353,77 @@ a{ color:inherit; }
   margin-top:0;
   border-bottom:1px solid #d6d6d6;
 }
-.about-callout{
-  background:#fffbe6;
-  border-color:#c5b97c;
-  border-top-color:#b2a764;
-  border-left-color:#b2a764;
-  border-right-color:#fff;
-  border-bottom-color:#fff;
+/* About: "system info" layout (formatting only) */
+.about-shell{
+  display:grid;
+  grid-template-columns: 240px 1fr;
+  gap:14px;
+  align-items:start;
+}
+.about-side{ min-width:0; }
+.about-main{ min-width:0; }
+
+.dotframe{
+  background:#fff;
+  border:1px dotted #7f7f7f;
+  padding:10px;
+}
+
+.about-id .avatar-wrap{
+  width:140px;
+  height:140px;
+  margin:0 auto 10px;
+}
+
+.scan-rule{
+  height:8px;
+  margin:8px 0 10px;
+  background:
+    repeating-linear-gradient(
+      to right,
+      #000 0px, #000 2px,
+      transparent 2px, transparent 6px
+    );
+  opacity:.28;
+}
+.about-card-dot{
+  background:#fff;
+  border:1px dotted #7f7f7f;
+}
+
+/* ASCII-ish section headers without changing content */
+.group-title.ascii{
+  position:relative;
+  padding:6px 8px;
+  background:#fafafa;
+  border-bottom:1px solid #ddd;
+  margin:-10px -10px 10px; /* snug like a titlebar */
+  font-weight:900;
+}
+.group-title.ascii::before{
+  content:"══ ";
+  opacity:.6;
+}
+.group-title.ascii::after{
+  content:" ═════════════════════";
+  opacity:.35;
+  white-space:nowrap;
+}
+
+/* Make spacing feel intentional */
+.about-main .about-card{ margin-top:12px; }
+.about-main .about-card:first-child{ margin-top:0; }
+
+/* Responsive: stack panes on smaller screens */
+@media (max-width:720px){
+  .about-shell{ grid-template-columns:1fr; }
+  .about-id .avatar-wrap{ margin:0 0 10px; }
 }
 
 /* Statusbar feels "alive" when window is focused */
 .win:not(.active) .statusbar{ opacity:.82; }
 .win.active .statusbar{ opacity:1; font-weight:800; }
 
-/* Skills layout */
 /* Skills window */
 .skills-grid{
   display:grid;
@@ -413,12 +454,6 @@ a{ color:inherit; }
   border:1px dotted #7f7f7f;
   padding:8px;
 }
-
-.two-col{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:14px;
-}
 .pill-grid{
   display:flex;
   flex-wrap:wrap;
@@ -438,8 +473,6 @@ a{ color:inherit; }
   line-height:1;
   white-space:nowrap;
 }
-
-.group{ margin-top:12px; }
 .group-title{
   font-weight:900;
   margin-bottom:6px;
@@ -464,6 +497,13 @@ a{ color:inherit; }
 .t-title{ font-weight:900; }
 .t-sub{ font-size:12px; opacity:.85; margin-top:2px; }
 
+/* Experience page: dotted vibe */
+#win-experience .t-item{ border:1px dotted #7f7f7f; }
+#win-experience .t-item:hover{
+  background:#fff;
+  outline:1px dotted #000;
+  outline-offset:-3px;
+}
 /* Taskbar */
 .taskbar{
   position:fixed;
@@ -730,11 +770,9 @@ a{ color:inherit; }
 
 /* Mobile */
 @media (max-width:720px){
-  .two-col{ grid-template-columns:1fr; }
-  .skills-grid{ grid-template-columns:1fr; }
+.skills-grid{ grid-template-columns:1fr; }
   .t-item{ grid-template-columns: 1fr; }
-  .about-hero{ flex-direction:column-reverse; align-items:flex-start; }
-  .avatar-wrap{ width:120px; height:120px; }
+.avatar-wrap{ width:120px; height:120px; }
 }
 @media (max-width:600px){
   body{ overflow:auto; }
@@ -751,4 +789,374 @@ a{ color:inherit; }
     height:calc(100% - 60px) !important;
     resize:none;
   }
+}
+/* ABOUT (scoped to #win-about) */
+#win-about{ font-size:14px; }
+#win-about .win-body{ padding:10px; }
+
+#win-about .about-page{ background:#c0c0c0; }
+
+#win-about .panel.pad.about-page{
+  background:#c0c0c0;
+  border:2px solid #c0c0c0;
+  border-top-color:#ffffff;
+  border-left-color:#ffffff;
+  border-right-color:#808080;
+  border-bottom-color:#808080;
+}
+
+#win-about .about-shell{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:12px;
+  align-items:start;
+}
+
+#win-about .about-side,
+#win-about .about-main{ min-width:0; }
+
+#win-about .dotframe{
+  background:#fff;
+  border:1px dotted #7f7f7f;
+  padding:10px;
+}
+
+#win-about .about-id{
+  background:linear-gradient(#f6f1df,#fffdf6);
+  border:1px solid #b6b09f;
+}
+#win-about .about-id p{ font-size:12px; line-height:1.45; }
+
+#win-about .about-main{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#fffdf6;
+  border:2px solid #c0c0c0;
+  border-top-color:#808080;
+  border-left-color:#808080;
+  border-right-color:#ffffff;
+  border-bottom-color:#ffffff;
+  padding:10px;
+}
+#win-about .about-main .about-card{ margin-top:0; }
+
+#win-about .about-card.about-card-dot{
+  background:#fffdf6;
+  border:1px solid #b6b09f;
+  padding:10px;
+}
+
+#win-about .group-title.ascii{
+  position:relative;
+  padding:6px 8px;
+  background:#efe6c8;
+  border-bottom:1px solid #b6b09f;
+  margin:-10px -10px 10px;
+  font-weight:900;
+  color:#000;
+}
+#win-about .group-title.ascii::before{ content:""; }
+#win-about .group-title.ascii::after{
+  content:"  ─────────────────────";
+  opacity:.25;
+  white-space:nowrap;
+}
+
+#win-about .scan-rule{
+  height:8px;
+  margin:8px 0 10px;
+  background:repeating-linear-gradient(to right,#000 0px,#000 2px,transparent 2px,transparent 6px);
+  opacity:.28;
+  filter:saturate(.8);
+}
+#win-about .scan-rule.tight{ height:6px; margin:10px 0; }
+
+#win-about .muted{ opacity:.88; }
+#win-about .bullets{ margin:8px 0 0 18px; }
+#win-about .bullets li{ margin:6px 0; }
+
+@media (max-width:720px){
+  #win-about .about-shell{ grid-template-columns:1fr; }
+}
+
+/* PROJECTS */
+#win-projects .panel{ background:#c0c0c0; }
+
+#win-projects .panel-head{
+  background:#efe6c8;
+  border-bottom:1px solid #b6b09f;
+  font-size:12px;
+  padding:6px 10px;
+}
+
+#win-projects .list{
+  background:#fffdf6;
+  border:2px solid #c0c0c0;
+  border-top-color:#808080;
+  border-left-color:#808080;
+  border-right-color:#ffffff;
+  border-bottom-color:#ffffff;
+  padding:0;
+}
+
+#win-projects .proj-item{
+  padding:8px 10px;
+  gap:12px;
+  border:0;
+  border-bottom:1px solid #e0dccf;
+}
+
+#win-projects .proj-item:nth-child(even){ background:#fbf6e6; }
+#win-projects .proj-item:nth-child(odd){ background:#fffdf6; }
+
+#win-projects .proj-item:hover{
+  background:#dfefff;
+  outline:1px dotted #000;
+  outline-offset:-3px;
+}
+
+#win-projects .proj-main{ align-items:flex-start; }
+#win-projects .li-left{ gap:10px; }
+#win-projects .li-icn-img{
+  width:20px;
+  height:20px;
+  margin-top:2px;
+}
+
+#win-projects .li-title{
+  font-weight:900;
+  line-height:1.15;
+}
+#win-projects .li-sub{
+  margin-top:2px;
+  font-size:12px;
+  opacity:.9;
+}
+
+#win-projects .proj-actions{
+  gap:10px;
+  align-items:center;
+}
+#win-projects .proj-actions .ui-btn{
+  height:24px;
+  padding:2px 10px;
+  font-size:12px;
+}
+
+#win-projects .proj-item .li-sub{ max-width:560px; }
+
+#win-projects .statusbar{
+  margin-top:0;
+  border-top:1px solid #b6b09f;
+  background:#c0c0c0;
+}
+
+/* SKILLS */
+#win-skills .panel{ background:#c0c0c0; }
+
+#win-skills .panel.pad{ background:#c0c0c0; }
+#win-skills .skills-grid{ gap:10px; }
+
+#win-skills .skills-group{
+  background:#fffdf6;
+  border:2px solid #c0c0c0;
+  border-top-color:#808080;
+  border-left-color:#808080;
+  border-right-color:#ffffff;
+  border-bottom-color:#ffffff;
+  padding:10px;
+}
+
+#win-skills .skills-head{
+  background:#dfe7d6;
+  border-bottom:1px solid #9fb097;
+  color:#000;
+  padding:6px 8px;
+  margin:-10px -10px 10px;
+  font-weight:900;
+}
+
+#win-skills .skills-head::after{
+  content:"  ─────────────";
+  opacity:.25;
+  white-space:nowrap;
+}
+
+#win-skills .pill{
+  background:#fffdf6;
+  font-size:12px;
+  padding:3px 8px;
+  border:2px solid #c0c0c0;
+  border-top-color:#ffffff;
+  border-left-color:#ffffff;
+  border-right-color:#808080;
+  border-bottom-color:#808080;
+}
+
+#win-skills .pill:hover{
+  background:#e8f1ff;
+  outline:1px dotted #000;
+  outline-offset:-3px;
+}
+
+#win-skills .skills-note{
+  background:#fbf6e6;
+  border:1px solid #b6b09f;
+}
+
+#win-skills .statusbar{
+  margin-top:8px;
+  border-top:1px solid #b6b09f;
+  background:#c0c0c0;
+}
+
+/* EXPERIENCE (plum accent) */
+#win-experience .panel{ background:#c0c0c0; }
+#win-experience .panel.pad{ background:#c0c0c0; }
+
+#win-experience .panel-head{
+  background:#efe6c8;
+  border-bottom:1px solid #b6b09f;
+  font-size:12px;
+  padding:6px 10px;
+}
+
+#win-experience .timeline{
+  background:#fffdf6;
+  border:2px solid #c0c0c0;
+  border-top-color:#808080;
+  border-left-color:#808080;
+  border-right-color:#ffffff;
+  border-bottom-color:#ffffff;
+  padding:8px;
+  margin-top:0;
+  position:relative;
+  padding-top:34px;
+}
+
+#win-experience .t-item{
+  background:#fffdf6;
+  border:0;
+  border-bottom:1px solid #e0dccf;
+  padding:12px 10px;
+  grid-template-columns:160px 1fr;
+}
+
+#win-experience .t-item:nth-child(even){ background:#fbf6e6; }
+
+#win-experience .t-item:hover{
+  background:#efe9ff;
+  outline:1px dotted #000;
+  outline-offset:-3px;
+}
+
+#win-experience .t-when{
+  font-weight:900;
+  opacity:.9;
+  font-size:12px;
+  letter-spacing:.2px;
+}
+
+#win-experience .t-title{
+  display:inline-block;
+  background:#e9ddff;
+  border:1px solid #b7a0d6;
+  padding:2px 6px;
+  margin-bottom:4px;
+}
+
+#win-experience .t-sub{ opacity:.9; }
+#win-experience .bullets li{ margin:6px 0; }
+
+#win-experience .statusbar{
+  margin-top:8px;
+  border-top:1px solid #b6b09f;
+  background:#c0c0c0;
+}
+
+#win-experience .timeline::before{
+  content:"Role / Type                          Work / Project                                      Notes";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:28px;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  font-size:12px;
+  font-weight:900;
+  background:#efe6c8;
+  border-bottom:1px solid #b6b09f;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+}
+
+#win-experience .timeline::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:28px;
+  pointer-events:none;
+  background:linear-gradient(to right,
+    transparent 0,
+    transparent 28%,
+    #b6b09f 28%,
+    #ffffff 28.2%,
+    transparent 28.2%,
+    transparent 68%,
+    #b6b09f 68%,
+    #ffffff 68.2%,
+    transparent 68.2%,
+    transparent 100%);
+  opacity:.9;
+}
+
+/* CONTACT (teal accent) */
+#win-contact .panel{ background:#c0c0c0; }
+#win-contact .panel.pad{ background:#c0c0c0; }
+
+#win-contact .contact-hero{
+  background:#d7efee;
+  border:1px solid #8bb8b6;
+  padding:10px;
+  margin:-12px -12px 12px;
+}
+
+#win-contact .contact-badge{
+  background:#fff;
+  border-color:#000;
+}
+
+#win-contact .contact-card{
+  background:#fffdf6;
+  border:1px solid #b6b09f;
+  padding:10px;
+}
+#win-contact .contact-card:nth-child(even){ background:#fbf6e6; }
+
+#win-contact .contact-card:hover{
+  background:#e6f6f6;
+  outline:1px dotted #000;
+  outline-offset:-3px;
+}
+
+#win-contact .cc-top{ gap:12px; }
+#win-contact .cc-icn{ width:24px; height:24px; }
+
+#win-contact .cc-title{ font-weight:900; }
+#win-contact .cc-action{ font-size:12px; opacity:.9; }
+
+#win-contact .contact-foot{
+  background:#fffbe6;
+  border:1px solid #c5b97c;
+  padding:6px 8px;
+}
+
+#win-contact .statusbar{
+  margin-top:8px;
+  border-top:1px solid #b6b09f;
+  background:#c0c0c0;
 }
