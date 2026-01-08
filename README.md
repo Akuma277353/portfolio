@@ -7,7 +7,7 @@ This site is built entirely with vanilla HTML, CSS, and JavaScript.
 
 ## Live Demo
 
-GitHub Pages (if enabled):  
+GitHub Pages:  
 https://akuma277353.github.io/portfolio/
 
 ## Why This Exists
@@ -60,16 +60,17 @@ No build step. No dependencies.
 
 ## Project Structure  
 
+```
 |
-├─ index.html # Main markup and window layout
-├─ styles.css # All styling (Win95/98 look and layout)
-├─ script.js # Window manager, interactions, state
-├─ assets/
-  ├─ Abubakar_Shaikh_Resume.pdf
-  ├─ images/ # Wallpaper and profile image
-  ├─ icons/ # Desktop, menu, and UI icons
-  └─ fonts/ #font
-
+├─ assets/  
+| ├─ fonts/ #font  
+| ├─ images/ # Wallpaper and profile image  
+| ├─ icons/ # Desktop, menu, and UI icons  
+| └─ Abubakar_Shaikh_Resume.pdf  fonts/ #font
+├─ index.html # Main markup and window layout  
+├─ styles.css # All styling (Win95/98 look and layout)  
+└─ script.js # Window manager, interactions, state  
+```
 
 ## How It Works (High Level)
 
@@ -85,12 +86,23 @@ The logic favors explicit state tracking over implicit DOM behavior to keep inte
 ## Running Locally
 
 Clone the repository:
-
+```
 git clone https://github.com/akuma277353/portfolio.git
-
+```
+```
 cd portfolio
-
+```
 
 Open `index.html` directly in your browser, or use a simple local server:
 
+```
 python -m http.server
+```
+
+Then visit `http://localhost:8000`.
+
+## Status
+
+This project is actively iterated on.  
+Some UI details and content may change as features are refined or expanded.
+
