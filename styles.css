@@ -634,8 +634,8 @@ a{ color:inherit; }
 
 /* Icons */
 .menu-icon, .win-title-icn-img{
-  width:16px;
-  height:16px;
+  width:20px;
+  height:20px;
   flex-shrink:0;
   image-rendering: pixelated;
 }
