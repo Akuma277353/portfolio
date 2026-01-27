@@ -224,7 +224,7 @@
       </div>
     </section>
 
-    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="assets/icons/Projects.png" style="width:860px;height:520px;">
+    <section id="win-projects" class="win" role="dialog" aria-label="Projects window" data-title="Projects" data-icon="assets/icons/Projects.png" style="width:940px;height:550px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
           <img class="win-title-icn-img" src="assets/icons/Projects.png" alt="">
@@ -275,6 +275,32 @@ Highlights:
 
 What I focused on:
 Building features end-to-end, keeping behavior consistent, and debugging UI/state issues in a real codebase.">
+                  Info
+                </button>
+              </div>
+            </div>
+
+            <div class="proj-item">
+              <a class="proj-main" href="https://github.com/Akuma277353/AORS" target="_blank" rel="noreferrer">
+                <div class="li-left">
+                  <img class="li-icn-img" src="assets/icons/chart.png" alt="">
+                  <div>
+                    <div class="li-title">AORS — Autonomous Overload Remediation System (Work in Progress)</div>
+                    <div class="li-sub">Autonomous CPU overload detection and remediation on real hardware.</div>
+                  </div>
+                </div>
+              </a>
+              <div class="proj-actions">
+                <a class="ui-btn" href="https://github.com/Akuma277353/AORS" target="_blank" rel="noreferrer">Open</a>
+                <button class="ui-btn info-btn" type="button"
+                  data-popup-title="AORS — Autonomous Overload Remediation System (Work in Progress)"
+                  data-popup-body="Built an autonomous controller that detects and remediates sustained CPU overload on real hardware using psutil telemetry and temporal signal fusion.
+
+Implemented online adaptive work-intake control (EWMA + Welford) to map request rate to CPU utilization without hardcoded thresholds.
+
+Trained a scikit-learn classifier to distinguish normal traffic spikes from retry storms, enabling targeted mitigation.
+
+Shipped a decoupled FastAPI control plane + Streamlit dashboard; demonstrated recovery from 90%+ CPU saturation in <30s.">
                   Info
                 </button>
               </div>
@@ -372,7 +398,7 @@ I can still explain the architecture and share a private repo link on request.">
                 <div class="li-left">
                   <img class="li-icn-img" src="assets/icons/map.png" alt="">
                   <div>
-                    <div class="li-title">Pacific Atlas (Work in Progress...)</div>
+                    <div class="li-title">Pacific Atlas (Work in Progress)</div>
                     <div class="li-sub">WIP mapping project: interactive layers (quakes, volcanoes) + island explorer.</div>
                   </div>
                 </div>
@@ -429,7 +455,7 @@ I wanted a portfolio that feels like a tiny operating system — fun, but still 
           </div>
 
           <div class="statusbar">
-            <span>6 item(s)</span>
+            <span>7 item(s)</span>
             <span class="status-right">Ready</span>
           </div>
         </div>
@@ -516,7 +542,7 @@ I wanted a portfolio that feels like a tiny operating system — fun, but still 
       </div>
     </section>
 
-    <section id="win-skills" class="win" role="dialog" aria-label="Skills window" data-title="Skills" data-icon="assets/icons/skills.png" style="width:760px;height:430px;">
+    <section id="win-skills" class="win" role="dialog" aria-label="Skills window" data-title="Skills" data-icon="assets/icons/skills.png" style="width:760px;height:450px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
           <img class="win-title-icn-img" src="assets/icons/skills.png" alt="">
@@ -591,7 +617,7 @@ I wanted a portfolio that feels like a tiny operating system — fun, but still 
       </div>
     </section>
 
-    <section id="win-experience" class="win" role="dialog" aria-label="Experience window" data-title="Experience" data-icon="assets/icons/Experience.png" style="width:760px;height:440px;">
+    <section id="win-experience" class="win" role="dialog" aria-label="Experience window" data-title="Experience" data-icon="assets/icons/Experience.png" style="width:960px;height:580px;">
       <div class="win-titlebar" data-drag-handle>
         <div class="win-title-left">
           <img class="win-title-icn-img" src="assets/icons/Experience.png" alt="">
@@ -608,6 +634,23 @@ I wanted a portfolio that feels like a tiny operating system — fun, but still 
           <div class="group-title">Selected highlights</div>
 
           <div class="timeline">
+            <div class="t-item">
+              <div class="t-when">Hackathon project</div>
+              <div class="t-what">
+                <div class="t-title">AORS — Autonomous Overload Remediation System</div>
+                <div class="t-sub">Control systems • adaptive algorithms • real-time monitoring</div>
+                <ul class="bullets">
+                  <li>Built an autonomous closed-loop system that detects CPU overload on real hardware, applies throttling, and verifies recovery — mirroring AWS/GCP production patterns.</li>
+                  <li>Implemented temporal overload detection using sliding windows and multi-signal fusion (CPU trends, error rates, queue depth) with calculated confidence thresholds.</li>
+                  <li>Designed an adaptive work-intake controller using online learning (EWMA + Welford) to dynamically map request rate to CPU utilization.</li>
+                  <li>Trained a scikit-learn classifier to distinguish normal traffic spikes from retry storms, enabling targeted mitigation based on live telemetry.</li>
+                  <li>Shipped a FastAPI control plane with non-blocking telemetry and Streamlit dashboard — demonstrated recovery from 90%+ CPU saturation in under 30 seconds.</li>
+                  <li><strong>Challenges:</strong> Tuning detection thresholds to avoid false positives, handling hardware variability across CPUs, and ensuring control loop stability under extreme load.</li>
+                  <li><strong>Learnings:</strong> Control theory (feedback loops, stability, convergence), adaptive systems learning from live data, and production-grade patterns (separation of concerns, auditability).</li>
+                </ul>
+              </div>
+            </div>
+
             <div class="t-item">
               <div class="t-when">Team project</div>
               <div class="t-what">
