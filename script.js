@@ -491,6 +491,9 @@ function init(){
   setWinRect("win-notes", { left: 14, top: 14, width: 640, height: 380 });
   repositionNotesLeft();
 
+  // Open About Me window on top
+  openWin("win-about");
+
   window.addEventListener("resize", () => {
     if (isWinOpen("win-notes")) repositionNotesLeft();
   });
